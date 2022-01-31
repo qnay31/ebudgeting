@@ -1369,7 +1369,6 @@ $(document).ready(function () {
     // admin database income media global
     $('#tabel-data_adminDatabaseMedia').DataTable({
         "scrollX": true,
-        "scrollX": true,
         "processing": true,
         "serverSide": true,
         "scrollCollapse": true,
