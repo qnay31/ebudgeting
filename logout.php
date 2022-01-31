@@ -14,7 +14,7 @@ JOIN list_divisi ON list_divisi.id_pengurus = akun_pengurus.id_pengurus WHERE ak
 
 $data   = mysqli_fetch_array($q);
 
-$query = mysqli_query($conn, "INSERT INTO log_aktivity VALUES('', '$_SESSION[nama]', '$data[posisi]', '$ip', '$date', '$_SESSION[nama] $data[posisi] Telah Logout')");
+$query = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$data[posisi]', '$ip', '$date', '$_SESSION[nama] $data[posisi] Telah Logout')");
 // die(var_dump($query));
 session_start();
 $SESSION = [];
