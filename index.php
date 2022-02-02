@@ -124,7 +124,6 @@ if(isset($_GET['pesan'])){
                                             <input type="password" class="form-control form-control-user"
                                                 name="password" id="password-field" placeholder="Password"
                                                 aria-label="Password" aria-describedby="basic-addon1">
-                                            =
                                         </div>
                                         <?php if (isset ($error) ) : ?>
                                         <p style="color: red; font-style: italic;">Username/Password

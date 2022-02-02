@@ -1620,6 +1620,36 @@ WHERE id = '$id' ");
 return mysqli_affected_rows($conn);
 }
 
+// Change AKun
+function changeName($data)
+{
+global $conn;
 
+$nama = htmlspecialchars(mysqli_real_escape_string($conn, $data["nama"]));
+$oldId = htmlspecialchars(mysqli_real_escape_string($conn, $data["oldId"]));
+$namaAkun = htmlspecialchars(mysqli_real_escape_string($conn, $data["namaAkun"]));
+$namaChange = htmlspecialchars(mysqli_real_escape_string($conn, $data["namaChange"]));
+$changeID = htmlspecialchars(mysqli_real_escape_string($conn, $data["changeID"]));
+
+// update_target
+$update = mysqli_query($conn, "UPDATE `income_media` SET
+nomor_id = '$changeID',
+`pemegang` ='$namaChange'
+WHERE nama_akun = '$namaAkun' ");
+
+$update2 = mysqli_query($conn, "UPDATE `laporan_media` SET
+nomor_id = '$changeID',
+`pemegang` ='$namaChange'
+WHERE nama_akun = '$namaAkun' ");
+
+$update3 = mysqli_query($conn, "UPDATE `data_akun` SET
+nomor_id = '$changeID',
+`pemegang` = '$namaChange'
+WHERE nama_akun = '$namaAkun' ");
+
+
+// die(var_dump($update));
+return mysqli_affected_rows($conn);
+}
 
 ?>

@@ -51,7 +51,7 @@ if ($key_admin == "akunEbudget") {
             }
         }
     } else {
-        # code...
+        
     }
     
 
@@ -61,6 +61,19 @@ if ($key_admin == "akunEbudget") {
     $q  = mysqli_query($conn, "SELECT * FROM $key_admin ORDER BY `pemegang` DESC");
     $j_view     = strtoupper($key_admin);
     $admin_judul = "$j_view";
+
+    if (isset($_POST["changeName"]) ) {
+        $link = $_SESSION["username"];
+        if(changeName($_POST) > 0 ) {
+            echo "<script>
+                alert('Data Berhasil diperbarui');
+                document.location.href = '$link.php?id_adminKey=$key_admin';
+            </script>";            
+        } 
+            else {
+            echo mysqli_error($conn);
+        }
+    }
 
 } elseif ($key_admin == "income" || $key_admin == "incometanparesi") {
     $j_view     = strtoupper($key_admin);
@@ -432,13 +445,15 @@ if ($key_admin == "akunEbudget") {
                     <td><?= $r['nama_akun'] ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
                     <td>
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
+                        <a href="" data-bs-toggle="modal" data-bs-target="#akun_<?= $r["id"] ?>"><i class="bi bi-pencil"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i></a>&nbsp;|&nbsp;
                         <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Hapus"></i></a>
                     </td>
                 </tr>
+                <?php include '../modal/mediaSosial/akun.php'; ?>
                 <?php } ?>
+
             </tbody>
         </table>
 
