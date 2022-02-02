@@ -3531,7 +3531,27 @@
         <!-- End Profile Page Nav -->
         <?php }?>
 
-        <?php if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "kepala_cabang") { ?>
+        <?php if ($_SESSION["id_pengurus"] == "ketua_yayasan") { ?>
+        <li class="nav-heading">Menu</li>
+
+        <li class="nav-item"></i>
+            <a class="nav-link collapsed"
+                href="https://eprogram.alkiromamanah.com/redirect.php?toAction=Eprogram&user=<?= $_SESSION["id_pengurus"] ?>"
+                target="_blank">
+                <i class="bi bi-stack"></i>
+                <span>Eprogram</span>
+            </a>
+        </li>
+        <!-- End Eprogram Page Nav -->
+
+        <li class="nav-item"></i>
+            <a class="nav-link collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-stack"></i><span class="badge badge-danger badge-counter">New</span>
+                <span>DYPA Ebudgeting</span>
+            </a>
+        </li>
+        <!-- End Eprogram Page Nav -->
+        <?php } elseif ($_SESSION["id_pengurus"] == "kepala_cabang") { ?>
         <li class="nav-heading">Menu</li>
 
         <li class="nav-item"></i>
@@ -3543,9 +3563,8 @@
             </a>
         </li>
         <!-- End Eprogram Page Nav -->
-        <?php }?>
 
-
+        <?php } ?>
     </ul>
 
 </aside><!-- End Sidebar-->
