@@ -139,7 +139,6 @@
                 </tr>
                 <?php } ?>
             </tbody>
-            <?php } ?>
 
             <tfoot>
                 <tr style="text-align: center;">
@@ -152,6 +151,7 @@
                 </tr>
             </tfoot>
         </table>
+        <?php } ?>
 
         <!-- Modal -->
         <div id="dataModal_management" class="modal fade">
