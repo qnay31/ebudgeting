@@ -105,6 +105,12 @@ $(document).ready(function () {
         })
     })
 
+    function Capitalize(str)
+    {  return str.replace (/\w\S*/g, 
+        function(txt)
+        {  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); } );
+    }
+
     // tabel data verifikasi
     $('#tabel-data_verifikasi').DataTable({
         "scrollX": true,
@@ -519,6 +525,11 @@ $(document).ready(function () {
                 return "<center>"+no+"</center>"
             }
         }, {
+            targets: 1,
+            "render": function(data) {
+                return Capitalize(data);
+            }
+        }, {
             targets: [ 4 ],
             orderData: [ 0, 4 ]
         }, {
@@ -553,6 +564,11 @@ $(document).ready(function () {
             "render": function (data) {
                 var btn = "<center><a href=\"../models/base_admin/hapus_log.php?id_unik="+data+"\" onclick=\"return confirm('Hapus log history ini?')\" class=\"btn btn-danger btn-xs\"><i class=\"bi bi-trash\"></i></a></center>"
                 return btn;
+            }
+        }, {
+            "targets": 1,
+            "render": function(data) {
+                return Capitalize(data);
             }
         }, {
             targets: [ 4 ],
