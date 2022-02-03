@@ -88,6 +88,8 @@ if ($key_admin == "akunEbudget") {
     $j_view     = strtoupper($key_admin);
     $admin_judul = "DATA $j_view";
 
+} elseif ($key_admin == "logActivity") {
+
 } else {
     $q  = mysqli_query($conn, "SELECT * FROM 2022_$key_admin ORDER BY `tgl_dibuat` DESC");
     $j_view     = strtoupper($key_admin);
@@ -602,6 +604,24 @@ if ($key_admin == "akunEbudget") {
                     <th></th>
                 </tr>
             </tfoot>
+        </table>
+
+        <?php } elseif ($key_admin == "logActivity") { ?>
+        <table id="tabel-adminLog" class="table table-striped table-bordered nowrap">
+            <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">Menu</th>
+                    <th scope="col" class="search">Nama</th>
+                    <th scope="col" class="search">Posisi</th>
+                    <th scope="col">Ip Address</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Pukul</th>
+                    <th scope="col">Riwayat</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
 
         <?php } else { ?>

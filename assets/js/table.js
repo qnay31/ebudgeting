@@ -515,7 +515,44 @@ $(document).ready(function () {
         columnDefs: [{
             "targets" : 0,
             "render": function (data, type, row, meta) {
-                return meta.row + meta.settings._iDisplayStart + 1;
+                var no = meta.row + meta.settings._iDisplayStart + 1;
+                return "<center>"+no+"</center>"
+            }
+        }, {
+            targets: [ 4 ],
+            orderData: [ 0, 4 ]
+        }, {
+            targets: [ 5 ],
+            orderData: [ 1, 5 ]
+        }],
+    });
+
+    // tabel log admin
+    $('#tabel-adminLog').DataTable({
+        "scrollX": true,
+        "processing": true,
+        "serverSide": true,
+        "scrollCollapse": true,
+        deferRender: true,
+        dom: 'lfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                footer: true
+            },
+            'colvis'
+        ],
+        "lengthMenu": [
+            [10, 25, 50, 100, 1000000],
+            [10, 25, 50, 100, "All"]
+        ],
+        "ajax": "../ajax/data_log.php",
+        "order": [[ 4, "desc" ]],
+        // "autoWidth": true,
+        columnDefs: [{
+            "targets" : 0,
+            "render": function (data) {
+                var btn = "<center><a href=\"../models/base_admin/hapus_log.php?id_unik="+data+"\" onclick=\"return confirm('Hapus log history ini?')\" class=\"btn btn-danger btn-xs\"><i class=\"bi bi-trash\"></i></a></center>"
+                return btn;
             }
         }, {
             targets: [ 4 ],
