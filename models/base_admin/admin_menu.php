@@ -124,10 +124,9 @@ if ($key_admin == "akunEbudget") {
                     <td><?= $r['username'] ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
                     <td style="text-align: center;">
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
+                        <a href="../models/base_admin/hapus_ebudget.php?id_unik=<?= $r['id'] ?>"><i class="bi bi-trash"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"
+                                onclick="return confirm('Yakin data ini mau dihapus?!')"></i></a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -214,7 +213,7 @@ if ($key_admin == "akunEbudget") {
                                 title="Edit Laporan"></i></a>&nbsp;|
 
                         <a href="../models/forms/hapus_laporan/hapus_lapProgram.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln2 ?>"
-                            onclick="return confirm('Yakin Laporan ini mau dihapus?!')"" data-bs-toggle=" modal"
+                            onclick="return confirm('Yakin Laporan ini mau dihapus?!')" data-bs-toggle=" modal"
                             data-bs-target="#hapus_<?= $r["id"] ?>"><i class="bi bi-trash" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Hapus Laporan"></i></a>
 
