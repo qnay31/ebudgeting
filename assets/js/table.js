@@ -3650,6 +3650,9 @@ $(document).ready(function () {
     var table = $('#tabel-data_databaseIncomeMedia').DataTable({
         "scrollX": true,
         "scrollCollapse": true,
+        "processing": true,
+        "serverSide": false,
+        "ajax": "../ajax/data_incomeYayasan.php",
         "lengthMenu": [
             [10, 25, 50, 100, -1],
             [10, 25, 50, 100, "All"]
@@ -3705,14 +3708,26 @@ $(document).ready(function () {
             orderable: false
         }, 
         columnDefs: [{
+            "targets" : 0,
+            "render": function (data, type, row, meta) {
+                var no = meta.row + meta.settings._iDisplayStart + 1
+                return "<center>"+no+"</center>";
+            }
+        }, {
             width: 150,
-            targets: 1
+            targets: 1,
+            "render": function(data) {
+                return Capitalize(data);
+            }
         }, {
             width: 200,
             targets: 2
         }, {
             width: 200,
-            targets: 3
+            targets: 3,
+            "render": function(data) {
+                return Capitalize(data);
+            }
         }, {
             width: 100,
             targets: 4
@@ -3721,7 +3736,10 @@ $(document).ready(function () {
             targets: 5
         }, {
             width: 200,
-            targets: 6
+            targets: 6,
+            "render": function(data) {
+                return Capitalize(data);
+            }
         }, {
             width: 150,
             targets: 7

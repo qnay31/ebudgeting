@@ -1,4 +1,5 @@
 <?php
+session_start();
 /*
  * DataTables example server-side processing script.
  *
@@ -22,7 +23,23 @@ $table = 'income_media';
  
 // Table's primary key
 $primaryKey = 'id';
- 
+
+if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") {
+    $where = "nomor_id = '$_SESSION[id]' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC";
+
+} elseif ($_SESSION["id_pengurus"] == "kepala_cabang" || $_SESSION["username"] == "facebook_bogor") {
+    $where = "cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_bogor' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC";
+
+} elseif ($_SESSION["id_pengurus"] == "manager_instagram") {
+    $where = "cabang = '$_SESSION[cabang]' AND id_pengurus = 'instagram' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC";
+
+} elseif ($_SESSION["id_pengurus"] == "manager_facebook") {
+    $where = "cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_depok' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC";
+
+} else {
+    $where = "status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC";
+}
+
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
@@ -91,5 +108,5 @@ $sql_details = array(
 require( '../ssp.class.php' );
  
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+    SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );

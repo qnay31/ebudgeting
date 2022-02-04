@@ -1,27 +1,3 @@
-<?php
-
-if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") {
-    $q  = mysqli_query($conn, "SELECT * FROM income_media WHERE pemegang = '$nama' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC");
-
-} elseif ($_SESSION["id_pengurus"] == "kepala_cabang") {
-    $q = mysqli_query($conn, "SELECT * FROM income_media WHERE cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_bogor' AND status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC");
-    
-} elseif ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] == "manager_instagram") {
-    if ($_SESSION["username"] == "admin_facebook") {
-        $q = mysqli_query($conn, "SELECT * FROM income_media WHERE cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_depok' AND status = 'OK' ORDER BY pemegang ASC,`tanggal_tf` DESC");
-
-    } else {
-        $q = mysqli_query($conn, "SELECT * FROM income_media WHERE cabang = '$_SESSION[cabang]' AND id_pengurus = '$_SESSION[username]' AND status = 'OK' ORDER BY pemegang ASC,`tanggal_tf` DESC");
-    }
-
-} else {
-    $q  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'OK' ORDER BY pemegang ASC, `tanggal_tf` DESC");
-}
-
-
-
-?>
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Database</h1>
