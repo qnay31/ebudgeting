@@ -17,14 +17,14 @@ if (isset($_POST["input"]) ) {
         }
     }
 
-$q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' ORDER BY `tgl_pemasukan` DESC");
+$q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Pending' ORDER BY `tgl_pemasukan` DESC");
 $s = $q->num_rows;
 
 $q2  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'Menunggu Verifikasi' ORDER BY `tanggal_tf` DESC");
 $s2 = $q2->num_rows;
 
 if ($incomeId == "") {
-    $q3  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' AND id = '$unik' AND MONTH(tgl_pemasukan) = '$periode' ORDER BY `tgl_pemasukan` DESC");
+    $q3  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Pending' AND id = '$unik' AND MONTH(tgl_pemasukan) = '$periode' ORDER BY `tgl_pemasukan` DESC");
     $data   = mysqli_fetch_assoc($q3);
 } else {
     $q3  = mysqli_query($conn, "SELECT * FROM 2022_incometanparesi WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' AND id = '$unik' AND MONTH(tgl_pemasukan) = '$periode' ORDER BY `tgl_pemasukan` DESC");

@@ -46,10 +46,14 @@
                     <td style=" text-align: center;">
                         <a class="btn btn-primary"
                             href="../admin/<?= $_SESSION["username"] ?>.php?id_forms=edit_incomeMedia&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin anggaran ini mau diedit?!')">Edit</a> ||
+                            onclick="return confirm('Yakin anggaran ini mau diedit?!')">
+                            <i class="bi bi-pencil-square text-white"></i>
+                        </a> ||
                         <a class="btn btn-danger"
                             href="../models/mediaSosial/hapus_income.php?id_hapus=<?= $r["nama_akun"] ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin Income <?= $r[nama_akun] ?> ini mau dihapus?!')">Hapus</a>
+                            onclick="return confirm('Yakin Income <?= $r[nama_akun] ?> ini mau dihapus?!')">
+                            <i class="bi bi-trash text-white"></i>
+                        </a>
                     </td>
                     <td style="text-align: center;">
                         <span class="badge bg-warning">Pending</span>
@@ -59,7 +63,9 @@
                     <td style=" text-align: center;">
                         <a class="btn btn-danger"
                             href="../models/mediaSosial/hapus_income.php?id_hapus=<?= $r["nama_akun"] ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin Income <?= $r[nama_akun] ?> ini mau dihapus?!')">Hapus</a>
+                            onclick="return confirm('Yakin Income <?= $r[nama_akun] ?> ini mau dihapus?!')">
+                            <i class="bi bi-trash text-white"></i>
+                        </a>
                     </td>
                     <td style="text-align: center;">
                         <span class="badge bg-danger">Dibatalkan</span>

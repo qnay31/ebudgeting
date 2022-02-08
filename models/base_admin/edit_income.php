@@ -58,6 +58,7 @@
             <div class="form-text mb-2">
                 Tanggal Transfer
             </div>
+            <input type="hidden" name="oldTanggal" value="<?= $data["tanggal_tf"]; ?>">
             <input type="date" class="form-control" name="tanggal" required
                 oninvalid="this.setCustomValidity('Tanggal Transfer harus diisi')" oninput="this.setCustomValidity('')"
                 value="<?= $data["tanggal_tf"]; ?>">

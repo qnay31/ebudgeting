@@ -60,7 +60,22 @@
 
         <?php } ?>
 
-        <?php if ($_GET["id_database"] == "database_global" || $_GET["id_database"] == "database_paudqu" || $_GET["id_database"] == "database_program" || $_GET["id_database"] == "database_logistik" || $_GET["id_database"] == "database_aset_yayasan" || $_GET["id_database"] == "database_uang_makan" || $_GET["id_database"] == "database_gaji_karyawan" || $_GET["id_database"] == "database_anggaran_lain" || $_GET["id_database"] == "database_maintenance" || $_GET["id_database"] == "database_operasional_yayasan" || $_GET["id_database"] == "database_pemasukanMedia" || $_GET["id_database"] == "database_harianMedia" || $_GET["id_database"] == "database_akunMedia") { ?>
+        <?php if (
+            $_GET["id_database"] == "database_global" || 
+            $_GET["id_database"] == "database_paudqu" || 
+            $_GET["id_database"] == "database_program" || 
+            $_GET["id_database"] == "database_logistik" || 
+            $_GET["id_database"] == "database_aset_yayasan" || 
+            $_GET["id_database"] == "database_uang_makan" || 
+            $_GET["id_database"] == "database_gaji_karyawan" || 
+            $_GET["id_database"] == "database_anggaran_lain" || 
+            $_GET["id_database"] == "database_maintenance" || 
+            $_GET["id_database"] == "database_operasional_yayasan" || 
+            $_GET["id_database"] == "database_pemasukanMedia" || 
+            $_GET["id_database"] == "database_harianMedia" || 
+            $_GET["id_database"] == "database_akunMedia" || 
+            $_GET["id_database"] == "database_crossCheck"
+        ) { ?>
         <li class="nav-item">
             <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>Database</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -1345,6 +1360,32 @@
                         <i class="bi bi-circle"></i><span>Pemasukan Global (Sarah)</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                        <i class="bi bi-circle"></i><span>Crosscheck Income</span>
+                    </a>
+                </li>
+
+                <?php } elseif ($_GET["id_database"] == "database_crossCheck") { ?>
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Pemasukan Media (Sahila)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
+                        <i class="bi bi-circle"></i><span>Pemasukan Global (Sarah)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck" class="active">
+                        <i class="bi bi-circle"></i><span>Crosscheck Income</span>
+                    </a>
+                </li>
+
                 <?php } else { ?>
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia" class="active">
@@ -1355,6 +1396,12 @@
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
                         <i class="bi bi-circle"></i><span>Pemasukan Global (Sarah)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                        <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
 
@@ -1527,6 +1574,12 @@
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
                         <i class="bi bi-circle"></i><span>Pemasukan Global (Sarah)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                        <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
 

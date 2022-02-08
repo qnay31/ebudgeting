@@ -43,10 +43,12 @@
                     <td style=" text-align: center;">
                         <a class="btn btn-success"
                             href="../verif/laporan/checkIncome.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Income akan dikonfirmasi dan sudah valid??!')">Konfirmasi</a> ||
+                            onclick="return confirm('Income akan dikonfirmasi dan sudah valid??!')"><i
+                                class="bi bi-check-circle text-white"></i></a> ||
                         <a class="btn btn-danger"
                             href="../verif/laporan/batalIncome.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Income akan dibatalkan karena tidak sesuai dan dihapus??!')">Batalkan</a>
+                            onclick="return confirm('Income akan dibatalkan karena tidak sesuai dan dihapus??!')"><i
+                                class="bi bi-x-circle text-white"></i></a>
 
                     </td>
                     <td style="text-align: center;">

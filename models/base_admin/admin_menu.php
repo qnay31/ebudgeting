@@ -448,8 +448,9 @@ if ($key_admin == "akunEbudget") {
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#akun_<?= $r["id"] ?>"><i class="bi bi-pencil"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
+                        <a href="../models/base_admin/hapus_akunMedia.php?id_unik=<?= $r['nomor_id'] ?>"><i
+                                class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"
+                                onclick="return confirm('Yakin data ini mau dihapus?!')"></i></a>
                     </td>
                 </tr>
                 <?php include '../modal/mediaSosial/akun.php'; ?>

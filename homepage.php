@@ -113,6 +113,18 @@ include 'base/header.php'
         include 'database/harianPemasukan.php';
     ?>
 
+    <!-- database crosscheck pemasukan media sosial harian-->
+    <?php } elseif ($_GET["id_database"] == "database_crossCheck") { ?>
+    <?php
+        include 'database/crossCheck.php';
+    ?>
+
+    <!-- database edit income media sosial -->
+    <?php } elseif ($_GET["id_adminKey"] == "edit_income") { ?>
+    <?php
+        include '../forms/pemasukan/editIncome.php';
+    ?>
+
     <!-- form pengajuan -->
     <?php } elseif ($_GET["id_forms"] == "daftar_pengajuan") { ?>
     <?php

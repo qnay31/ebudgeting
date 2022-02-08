@@ -4,6 +4,9 @@
         <div class="text-center">
             <label for="">
                 <b style="color: black;">Tabel Verifikasi Pemasukan Media Sosial</b>
+                <a class="btn btn-primary" href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck"
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="CrossCheck Income">
+                    <i class="bi bi-eye text-white"></i></a>
                 <hr>
             </label>
         </div>
@@ -37,12 +40,11 @@
                         <?= date('d-m-Y', strtotime($r['tgl_pemasukan'])); ?></td>
                     <td style="text-align: center;"><b><?= ucwords($r['status']) ?></b></td>
                     <td style=" text-align: center;">
-                        <a class="btn btn-primary"
-                            href="../admin/<?= $_SESSION["username"] ?>.php?id_forms=edit_pemasukan&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin anggaran ini mau diedit?!')">Edit</a> ||
-                        <a class="btn btn-danger"
-                            href="../models/pemasukan/hapus_pemasukan.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin anggaran ini mau dihapus?!')">Hapus</a>
+                        <a class="btn btn-success"
+                            href="../models/pemasukan/lapor_pemasukan.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
+                            onclick="return confirm('Laporan akan dikirim dan sudah yakin ?!')" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="Kirim">
+                            <i class="bi bi-box-arrow-right text-white"></i></a>
                     </td>
                     <td>Rp. <?= number_format($r['income'],0,"." , ".") ?></td>
                 </tr>
@@ -56,7 +58,7 @@
                 </tr>
             </tfoot>
         </table>
-        
+
         <!-- Non Resi -->
         <div class="text-center pt-3">
             <label for="">
@@ -95,10 +97,14 @@
                     <td style=" text-align: center;">
                         <a class="btn btn-primary"
                             href="../admin/<?= $_SESSION["username"] ?>.php?id_forms=edit_pemasukan&incomeId=nonResi&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin pemasukan ini mau diedit?!')">Edit</a> ||
+                            onclick="return confirm('Yakin pemasukan ini mau diedit?!')">
+                            <i class="bi bi-pencil-square text-white"></i>
+                        </a> ||
                         <a class="btn btn-danger"
                             href="../models/pemasukan/hapus_pemasukan.php?incomeId=nonResi&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
-                            onclick="return confirm('Yakin pemasukan ini mau dihapus?!')">Hapus</a>
+                            onclick="return confirm('Yakin pemasukan ini mau dihapus?!')">
+                            <i class="bi bi-trash text-white"></i>
+                        </a>
                     </td>
                     <td>Rp. <?= number_format($r['income'],0,"." , ".") ?></td>
                 </tr>

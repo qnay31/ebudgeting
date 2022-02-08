@@ -69,7 +69,7 @@ $periode  = $_GET["id_p"];
         }
         
         // pemasukan depok
-        $q2  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE MONTH(tgl_pemasukan) = '$periode' AND status = 'Terverifikasi' AND gedung = 'Fecebook Depok' ");
+        $q2  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE MONTH(tgl_pemasukan) = '$periode' AND status = 'Terverifikasi' AND gedung = 'Facebook Depok' ");
 
         $sql2 = $q2;
         while($r2 = mysqli_fetch_array($sql2))
@@ -118,7 +118,7 @@ $periode  = $_GET["id_p"];
     
     // sub cabang pemasukan
     // celengan
-    if ($id_pengurus == 'kepala_income' && $gedung == 'Fecebook Depok') {
+    if ($id_pengurus == 'kepala_income' && $gedung == 'Facebook Depok') {
         if (mysqli_fetch_assoc($c_query)) {
                 $update2 = mysqli_query($conn, "UPDATE `2022_data_income` SET 
                 `income_depok`   ='$hasil_income2',
