@@ -29,6 +29,8 @@ $ip     = get_client_ip();
 
             if($row['username'] == "$username"){
         $_SESSION["halaman_utama"]      = true ;
+
+        setcookie('login', 'true', time() + 43200 );
         
 		// buat session login dan username ADMIN
 		$_SESSION["id"]           = $row["id"];
@@ -125,6 +127,7 @@ if(isset($_GET['pesan'])){
                                                 name="password" id="password-field" placeholder="Password"
                                                 aria-label="Password" aria-describedby="basic-addon1">
                                         </div>
+
                                         <?php if (isset ($error) ) : ?>
                                         <p style="color: red; font-style: italic;">Username/Password
                                             salah!</p>
