@@ -1,7 +1,7 @@
 <div class="card-body">
     <h5 class="card-title">DATABASE <?= strtoupper($judul) ?></h5>
     <div class="table-responsive">
-        <h5 class="card-title text-center">Laporan <?= $judul ?></h5>
+        <h5 class="card-title text-center">Laporan <?= $judul ?> <?= $pProgram; ?></h5>
         <?php if ($id_management == "aset_yayasan") { ?>
         <table id="tabel-database_lapAset" class="table table-striped table-bordered nowrap">
             <thead>

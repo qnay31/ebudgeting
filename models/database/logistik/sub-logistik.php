@@ -1,7 +1,7 @@
 <div class="card-body">
-    <h5 class="card-title">DATABASE <?= strtoupper($_SESSION["posisi"]) ?></h5>
+    <h5 class="card-title">DATABASE LOGISTIK</h5>
     <div class="table-responsive">
-        <h5 class="card-title text-center">Laporan Logistik</h5>
+        <h5 class="card-title text-center">Laporan Logistik <?= $pProgram; ?></h5>
         <table id="tabel-database_laporan" class="table table-striped table-bordered nowrap">
             <thead>
                 <tr style="text-align: center;">

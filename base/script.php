@@ -56,6 +56,13 @@
 <script src="../owlcarousel/owl.carousel.js"></script>
 <?php } ?>
 
+<?php if (
+    $_SESSION["id_pengurus"] == "ketua_yayasan" ||
+    $_SESSION["id_pengurus"] == "management_keuangan" ||
+    $_SESSION["id_pengurus"] == "kepala_pengajuan"
+    ) { ?>
+<script src="../assets/js/splide.js"></script>
+<?php } ?>
 <!-- Template Main JS File -->
 <script src="../assets/js/jquery.mask.js"></script>
 <script src="../assets/js/main.js"></script>

@@ -117,6 +117,7 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": false,
         "ajax": "../ajax/data_income.php",
+        "deferRender": true,        
         "scrollCollapse": true,
         "lengthMenu": [
             [10, 25, 50, 100, -1],
@@ -618,14 +619,14 @@ $(document).ready(function () {
             searchPanes: {
                 show: false
             },
-            targets: [0,1, 5, 6, 7, 8, 9]
+            targets: [0,1, 5, 7, 8, 9]
         }, {
             searchPanes: {
                 show: true,
                 initCollapsed: true,
                 orderable: false
             },
-            targets: [2, 3, 4]
+            targets: [2, 3, 4, 6]
         }],
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(),

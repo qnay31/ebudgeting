@@ -1,3 +1,18 @@
+document.addEventListener("DOMContentLoaded", function() {
+    var splide = new Splide( '.splide', {
+        speed: number = 2000,
+        perPage  : 3,
+        gap        : '1.4rem',
+        breakpoints: {
+            765: {
+                perPage: 1,
+            },
+        }
+    } );
+    
+    splide.mount();
+});
+
 $("#management").change(function() {
     // variabel dari nilai combo box 
     var management = $("#management").val();

@@ -1,11 +1,11 @@
 <div class="card-body">
-    <h5 class="card-title">DATABASE <?= strtoupper($_SESSION["posisi"]) ?></h5>
+    <h5 class="card-title">DATABASE GLOBAL PROGRAM</h5>
     <div class="table-responsive">
         <?php if ($_GET["id_database"] == "database_program") { ?>
-        <h5 class="card-title text-center">Laporan Program</h5>
+        <h5 class="card-title text-center">Laporan Program <?= $pProgram; ?></h5>
 
         <?php } else { ?>
-        <h5 class="card-title text-center">Laporan PaudQu El-ZamZam</h5>
+        <h5 class="card-title text-center">Laporan PaudQu El-ZamZam <?= $pProgram; ?></h5>
         <?php } ?>
 
         <table id="tabel-database_laporan" class="table table-striped table-bordered nowrap">

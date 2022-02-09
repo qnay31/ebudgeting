@@ -1,5 +1,19 @@
 <?php
-    $q  = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE laporan = 'Terverifikasi' ORDER BY `tgl_dibuat` DESC");
+    if ($_GET["id_periode"] == "") {
+        $q  = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE laporan = 'Terverifikasi' ORDER BY `tgl_dibuat` DESC");
+        $s = $q->num_rows;
+        $pProgram = "Global"; 
+
+    } else {
+        $periode = $_GET["id_periode"];
+        $q  = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE laporan = 'Terverifikasi' AND MONTH(tgl_laporan) = '$periode' ORDER BY `tgl_dibuat` DESC");
+
+        $q2  = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE laporan = 'Terverifikasi' AND MONTH(tgl_laporan) = '$periode' ORDER BY `tgl_dibuat` DESC");
+        
+        $data = mysqli_fetch_assoc($q2);
+        $convert   = convertDateDBtoIndo($data['tgl_laporan']);
+        $pProgram     = substr($convert, 2, -5); 
+    }
 ?>
 
 <main id="main" class="main">
@@ -14,10 +28,16 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <section class="section dashboard">
+    <section class="section profile">
         <div class="row">
             <!-- Left side columns pengajuan-->
             <div class="col-lg-12" id="form-pengajuan">
+                <!-- periode -->
+                <div class="col-12">
+                    <div class="card">
+                        <?php include '../models/database/sub-periode.php'; ?>
+                    </div>
+                </div>
 
                 <!-- Laporan  -->
                 <div class="col-12">

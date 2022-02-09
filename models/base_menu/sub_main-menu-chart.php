@@ -7,7 +7,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_program">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -28,7 +27,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_paudqu">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -49,7 +47,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_logistik">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -70,7 +67,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_dataManagement=aset_yayasan&id_grafik=grafik_aset_yayasan">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -91,7 +87,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_dataManagement=uang_makan&id_grafik=grafik_uang_makan">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -113,7 +108,6 @@
                     href="<?= $_SESSION["username"] ?>.php?id_dataManagement=gaji_karyawan&id_grafik=grafik_gaji_karyawan">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -135,7 +129,6 @@
                     href="<?= $_SESSION["username"] ?>.php?id_dataManagement=anggaran_lain&id_grafik=grafik_anggaran_lain">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -156,7 +149,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_dataManagement=maintenance&id_grafik=grafik_maintenance">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -178,7 +170,6 @@
                     href="<?= $_SESSION["username"] ?>.php?id_dataManagement=operasional_yayasan&id_grafik=grafik_operasional_yayasan">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -201,7 +192,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_pemasukanMedia">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail income">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -225,7 +215,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_program">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -246,7 +235,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_logistik">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail laporan">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -267,7 +255,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_pemasukanMedia">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail income">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>
@@ -289,7 +276,6 @@
                 <a href="<?= $_SESSION["username"] ?>.php?id_grafik=grafik_pemasukanMedia">
                     <i class="bi bi-folder-symlink-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right"
                         title="Lihat detail income">
-                        <i class="text-danger">New !</i>
                     </i>
                 </a>
             </h5>

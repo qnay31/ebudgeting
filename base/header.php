@@ -32,6 +32,14 @@
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
+    <?php if (
+    $_SESSION["id_pengurus"] == "ketua_yayasan" ||
+    $_SESSION["id_pengurus"] == "management_keuangan" ||
+    $_SESSION["id_pengurus"] == "kepala_pengajuan"
+    ) { ?>
+    <link rel="stylesheet" href="../assets/css/splide.min.css">
+    <?php } ?>
+
     <!-- fontawesome -->
     <?php if ($_GET["id_profil"] == "myProfil") { ?>
     <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
