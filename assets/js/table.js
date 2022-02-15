@@ -105,6 +105,14 @@ $(document).ready(function () {
         })
     })
 
+    $(".detail-bulanan").click(function() {
+        Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Masih tahap pengembangan!'
+        });
+    });
+
     function Capitalize(str)
     {  return str.replace (/\w\S*/g, 
         function(txt)
@@ -2678,7 +2686,7 @@ $(document).ready(function () {
             searchPanes: {
                 show: false,
             },
-            targets: [1, 2, 5, 6, 7, 8, ,9, 10]
+            targets: [1, 2, 5, 6, 7, 8, ,9, 10, 11, 12, 13, 14]
         }],
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(),
@@ -2912,6 +2920,10 @@ $(document).ready(function () {
     });
 
     $('#tabel-database_lapMedia').DataTable({
+        "processing": true,
+        "serverSide": false,
+        "ajax": "../ajax/data_laporan.php",
+        "deferRender": true,        
         "scrollX": true,
         "lengthMenu": [
             [10, 25, 50, 100, -1],
@@ -2926,6 +2938,22 @@ $(document).ready(function () {
             'colvis'
         ],
         columnDefs: [{
+            "targets" : 0,
+            "render": function (data, type, row, meta) {
+                var no = meta.row + meta.settings._iDisplayStart + 1
+                return "<center>"+no+"</center>";
+            }
+        }, {
+            targets: 1,
+            "render": function(data) {
+                return Capitalize(data);
+            }
+        }, {
+            targets: 4,
+            "render": function(data) {
+                return "<center>"+data+"</center>";
+            }
+        }, {
             width: 150,
             targets: [1, 3, 5, 14]
         }, {

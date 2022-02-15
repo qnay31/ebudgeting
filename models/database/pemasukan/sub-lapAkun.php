@@ -30,33 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    $no = 1;
-                    while ($r = $q->fetch_assoc()) {
-                        $convert   = convertDateDBtoIndo($r['tgl_laporan']);
-                        $bulan     = substr($convert, 2);
-                ?>
-                <tr>
-                    <td style="text-align: center;"><?= $no++ ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['pemegang']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['posisi']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['nama_akun']) ?></td>
-                    <td style="text-align: center;">
-                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?></td>
-                    <td style=" text-align: center;">
-                        <?= $bulan ?>
-                    </td>
-                    <td style="text-align: center;"><?= number_format($r['totalSerangan'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['respon'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['minta_norek'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['alamat'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['insya_allah'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['belumbisa_bantu'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['tidak_respon'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['donatur'],0,"." , ".") ?></td>
-                    <td><?= number_format($r['total_income']) ?></td>
-                </tr>
-                <?php } ?>
+
             </tbody>
             <tfoot>
                 <tr style="text-align: center;">

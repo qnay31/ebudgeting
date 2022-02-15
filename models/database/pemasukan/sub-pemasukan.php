@@ -45,7 +45,7 @@ while($data_incNR = mysqli_fetch_array($incNR))
     <div class="col-xxl-3 col-md-6">
         <div class="card info-card customers-card">
             <div class="card-body">
-                <h5 class="card-title">Pemasukan Facebook Depok</span></h5>
+                <h5 class="card-title">Pemasukan Facebook Depok</h5>
 
                 <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -61,14 +61,17 @@ while($data_incNR = mysqli_fetch_array($incNR))
                                 <?= number_format($hasil_incomeFB,0,"." , ".") ?>
                             </a>
                             <?php } ?>
-
                         </h6>
+                        <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <?php if ($_SESSION["username"] == "sekretaris_facebook") { ?>
+
+    <?php } else { ?>
     <div class="col-xxl-3 col-md-6">
         <div class="card info-card customers-card">
             <div class="card-body">
@@ -80,6 +83,7 @@ while($data_incNR = mysqli_fetch_array($incNR))
                     </div>
                     <div class="ps-3">
                         <h6>Rp. <?= number_format($hasil_incomeFB_b,0,"." , ".") ?></h6>
+                        <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                     </div>
                 </div>
             </div>
@@ -97,6 +101,7 @@ while($data_incNR = mysqli_fetch_array($incNR))
                     </div>
                     <div class="ps-3">
                         <h6>Rp. <?= number_format($hasil_incomeIns,0,"." , ".") ?></h6>
+                        <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                     </div>
                 </div>
             </div>
@@ -113,6 +118,7 @@ while($data_incNR = mysqli_fetch_array($incNR))
                         <i class="bi bi-credit-card"></i>
                     </div>
                     <div class="ps-3">
+                        <?php if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "kepala_income" || $_SESSION["id_pengurus"] == "management_keuangan") { ?>
                         <?php if ($_GET["id_income"] == "") { ?>
                         <h6>
                             <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&id_income=nonResi"
@@ -126,11 +132,18 @@ while($data_incNR = mysqli_fetch_array($incNR))
                         </h6>
                         <?php } ?>
 
+                        <?php } else { ?>
+                        <h6>Rp.
+                            <?= number_format($hasil_incomeNR,0,"." , ".") ?>
+                        </h6>
+                        <?php } ?>
+                        <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>
 <!-- End Card -->
 <div class="card-body">

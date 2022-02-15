@@ -63,6 +63,7 @@
     ) { ?>
 <script src="../assets/js/splide.js"></script>
 <?php } ?>
+<script src="../assets/js/sweetalert2.min.js"></script>
 <!-- Template Main JS File -->
 <script src="../assets/js/jquery.mask.js"></script>
 <script src="../assets/js/main.js"></script>

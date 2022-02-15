@@ -1,6 +1,22 @@
 <?php
     if ($_GET["id_income"] == "") {
-        $q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE status = 'Terverifikasi' ORDER BY `tgl_pemasukan` DESC");
+        if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "kepala_income" || $_SESSION["id_pengurus"] == "management_keuangan") {
+            $q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE status = 'Terverifikasi' ORDER BY `tgl_pemasukan` DESC");
+
+        } elseif ($_SESSION["id_pengurus"] == "manager_instagram") {
+            $q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE gedung = 'Instagram' AND status = 'Terverifikasi' ORDER BY `tgl_pemasukan` DESC");
+
+        } else {
+            if ($_SESSION["cabang"] == "Depok") {
+                $gedung = 'Facebook Depok';
+            
+            } else {
+                $gedung = 'Facebook Bogor';
+            }
+            
+            $q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE gedung = '$gedung' AND status = 'Terverifikasi' ORDER BY `tgl_pemasukan` DESC");
+        }
+
     } else {
         $q  = mysqli_query($conn, "SELECT * FROM 2022_incometanparesi WHERE status = 'Terverifikasi' ORDER BY `tgl_pemasukan` DESC");
     }

@@ -3,6 +3,11 @@ session_start();
 error_reporting(0);
 require 'function.php';
 
+if (isset($_SESSION["halaman_utama"])) {
+    header("Location: admin/$_SESSION[username].php");
+    exit;
+}
+
 $date   = date("Y-m-d H:i:s");
 $ip     = get_client_ip();
 

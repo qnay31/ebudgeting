@@ -1,7 +1,7 @@
 <?php
 
 $bulan      = date("Y-m-d");
-$bln       = substr($bulan, 5,-3);
+$bln        = substr($bulan, 5,-3);
 // die(var_dump($bln));
 $keyAccount = $_GET["id_accountKey"];
 $Account    = $_GET["id_akun"];

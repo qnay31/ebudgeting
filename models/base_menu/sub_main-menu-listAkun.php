@@ -1,5 +1,5 @@
 <?php 
-if ($_SESSION["username"] == "admin_facebook") {
+if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook") {
     $pengurus   = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus = 'facebook_depok' ORDER BY `nama` ASC");
     
 } else {

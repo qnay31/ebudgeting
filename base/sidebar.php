@@ -1415,9 +1415,37 @@
                     </a>
                 </li>
 
+                <?php if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") { ?>
+                <?php } else { ?>
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Harian</span>
+                    </a>
+                </li>
+                <?php } ?>
+
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia" class="active">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
+                    </a>
+                </li>
+
+                <?php } elseif ($_GET["id_database"] == "database_pemasukanMedia") { ?>
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
+                        <i class="bi bi-circle"></i><span>Lap Akun Global</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia" class="active">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Harian</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
 
@@ -1428,9 +1456,18 @@
                     </a>
                 </li>
 
+                <?php if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") { ?>
+                <?php } else { ?>
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Harian</span>
+                    </a>
+                </li>
+                <?php } ?>
+
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
                 <?php } ?>
@@ -1591,11 +1628,21 @@
                     </a>
                 </li>
 
+                <?php if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") { ?>
+                <?php } else { ?>
                 <li>
-                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Harian</span>
                     </a>
                 </li>
+                <?php } ?>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
+                    </a>
+                </li>
+
                 <?php } ?>
             </ul>
         </li>

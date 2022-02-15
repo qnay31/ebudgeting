@@ -1,26 +1,3 @@
-<?php
-
-if ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] == "manager_instagram") {
-    if ($_SESSION["username"] == "admin_facebook") {
-        $q  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = 'facebook_depok' ORDER BY pemegang ASC, `tgl_laporan` DESC");
-
-    } else {
-        $q  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = '$_SESSION[username]' ORDER BY pemegang ASC, `tgl_laporan` DESC");
-    }
-
-} elseif ($_SESSION["id_pengurus"] == "ketua_yayasan") {
-    $q  = mysqli_query($conn, "SELECT * FROM laporan_media ORDER BY pemegang ASC, `tgl_laporan` DESC");
-
-} elseif ($_SESSION["id_pengurus"] == "kepala_cabang") {
-    $q  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = 'facebook_bogor' ORDER BY pemegang ASC, `tgl_laporan` DESC");
-
-} else {
-    $q  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE pemegang = '$_SESSION[nama]' ORDER BY `tgl_laporan` DESC");
-}
-
-
-?>
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Database</h1>

@@ -68,6 +68,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap5.min.css">
     <?php } ?>
 
+    <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css?v=<?= filemtime('../assets/css/style.css'); ?>" rel="stylesheet">
     <link href="../assets/css/responsive.css?v=<?= filemtime('../assets/css/responsive.css'); ?>" rel="stylesheet">

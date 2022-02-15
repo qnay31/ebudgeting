@@ -486,7 +486,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
     $bln       = substr($bulan, 5,-3);
     $i = 1;
     
-    if ($_SESSION["username"] == "admin_facebook") {
+    if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook") {
         $incBulanan = mysqli_query($conn, "SELECT * FROM income_media WHERE cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_depok' AND status = 'OK' AND MONTH(tanggal_tf) = '$bln'");
         while($data_incBulanan = mysqli_fetch_array($incBulanan))
         {
@@ -1696,6 +1696,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
+                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1730,6 +1731,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
+                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1764,6 +1766,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
+                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
