@@ -105,7 +105,7 @@ $(document).ready(function () {
         })
     })
 
-    $(".detail-bulanan").click(function() {
+    $(".maintenance").click(function() {
         Swal.fire({
             type: 'error',
             title: 'Oops...',
@@ -1766,8 +1766,12 @@ $(document).ready(function () {
         }
     });
 
-    $('#tabel-data_databaseMedia').DataTable({
+    $('.databaseMedia').DataTable({
         "scrollX": true,
+        "processing": true,
+        "serverSide": false,
+        "ajax": "../ajax/data_pemasukan.php",
+        "deferRender": true,        
         "lengthMenu": [
             [10, 25, 50, 100, -1],
             [10, 25, 50, 100, "All"]
@@ -1781,114 +1785,39 @@ $(document).ready(function () {
             'colvis'
         ],
         columnDefs: [{
-            width: '10%',
-            targets: 1
-        }, {
-            width: '13%',
-            targets: 2
-        }, {
-            width: '13%',
-            targets: 4
-        }, {
-            width: '10%',
-            targets: 6
-        }, {
-            width: '20%',
-            targets: 7
-        }, {
-            searchPanes: {
-                show: true,
-                initCollapsed: true
-            },
-            targets: [3]
-        }, {
-            searchPanes: {
-                show: true,
-                initCollapsed: true,
-                orderable: false
-            },
-            targets: [4]
-        }, {
-            searchPanes: {
-                show: true,
-                initCollapsed: true,
-            },
-            targets: [5]
-        }, {
-            searchPanes: {
-                show: false,
-            },
-            targets: [6]
-        }, {
-            searchPanes: {
-                show: false,
-            },
-            targets: [7]
-        }],
-        "footerCallback": function (row, data, start, end, display) {
-            var api = this.api(),
-                data;
-
-            // Remove the formatting to get integer data for summation
-            var intVal = function (i) {
-                return typeof i === 'string' ?
-                    i.replace(/[\Rp,.]/g, '') * 1 :
-                    typeof i === 'number' ?
-                    i : 0;
-            };
-
-            // Total over this page
-            pageTotal = api
-                .column(7, {
-                    page: 'current'
-                })
-                .data()
-                .reduce(function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0);
-
-            var number_string = pageTotal.toString(),
-                sisa = number_string.length % 3,
-                rupiah = number_string.substr(0, sisa),
-                ribuan = number_string.substr(sisa).match(/\d{3}/g);
-
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
+            "targets" : 0,
+            "render": function (data, type, row, meta) {
+                var no = meta.row + meta.settings._iDisplayStart + 1
+                return "<center>"+no+"</center>";
             }
-            // Update footer
-            $(api.column(7).footer()).html(
-                'Rp. ' + rupiah + ''
-            );
-        }
-    });
-    
-    $('#tabel-data_databaseMedia2').DataTable({
-        "scrollX": true,
-        "lengthMenu": [
-            [10, 25, 50, 100, -1],
-            [10, 25, 50, 100, "All"]
-        ],
-        dom: 'PBlfrtip',
-        buttons: [{
-                extend: 'excelHtml5',
-                footer: true
-
-            },
-            'colvis'
-        ],
-        columnDefs: [{
-            width: '10%',
+        }, {
+            width: '11%',
             targets: 1
         }, {
             width: '13%',
-            targets: 2
+            targets: 2,
+            "render": function (data) {
+                return "<center>"+data+"</center>";
+            } 
+        }, {
+            width: '15%',
+            targets: 3
         }, {
             width: '13%',
             targets: 4
         }, {
+            width: '13%',
+            targets: 5,
+            "render": function (data) {
+                return "<center>"+data+"</center>";
+            }
+        }, {
             width: '10%',
-            targets: 6
+            targets: 6,
+            "render": function (data) {
+                var verif = "<span class=\"badge bg-success\">"+data+"</span>";
+                return "<center>"+verif+"</center>";
+            }
         }, {
             width: '20%',
             targets: 7
@@ -1897,30 +1826,12 @@ $(document).ready(function () {
                 show: true,
                 initCollapsed: true
             },
-            targets: [3]
-        }, {
-            searchPanes: {
-                show: true,
-                initCollapsed: true,
-                orderable: false
-            },
-            targets: [4]
-        }, {
-            searchPanes: {
-                show: true,
-                initCollapsed: true,
-            },
-            targets: [5]
+            targets: [3, 4, 5]
         }, {
             searchPanes: {
                 show: false,
             },
-            targets: [6]
-        }, {
-            searchPanes: {
-                show: false,
-            },
-            targets: [7]
+            targets: [1, 2, 6, 7]
         }],
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(),
@@ -2945,6 +2856,11 @@ $(document).ready(function () {
             }
         }, {
             targets: 1,
+            "render": function(data) {
+                return Capitalize(data);
+            }
+        }, {
+            targets: 3,
             "render": function(data) {
                 return Capitalize(data);
             }

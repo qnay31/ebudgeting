@@ -38,6 +38,7 @@
     $_SESSION["id_pengurus"] == "kepala_pengajuan"
     ) { ?>
     <link rel="stylesheet" href="../assets/css/splide.min.css">
+    <link rel="stylesheet" href="../assets/css/themes/splide-skyblue.min.css">
     <?php } ?>
 
     <!-- fontawesome -->

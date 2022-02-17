@@ -1260,6 +1260,12 @@
                 </li>
 
                 <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
                         <i class="bi bi-circle"></i><span>Lap Akun Global</span>
                     </a>
@@ -1267,7 +1273,38 @@
 
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
+                    </a>
+                </li>
+
+                <?php } elseif ($_GET["id_database"] == "database_pemasukanMedia") { ?>
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_program">
+                        <i class="bi bi-circle"></i><span>Laporan Program</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_logistik">
+                        <i class="bi bi-circle"></i><span>Laporan Logistik</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia" class="active">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
+                        <i class="bi bi-circle"></i><span>Lap Akun Global</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
 
@@ -1285,6 +1322,12 @@
                 </li>
 
                 <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia" class="active">
                         <i class="bi bi-circle"></i><span>Lap Akun Global</span>
                     </a>
@@ -1292,7 +1335,7 @@
 
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
 
@@ -1310,6 +1353,12 @@
                 </li>
 
                 <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
                         <i class="bi bi-circle"></i><span>Lap Akun Global</span>
                     </a>
@@ -1317,7 +1366,7 @@
 
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia" class="active">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
 
@@ -1335,6 +1384,12 @@
                 </li>
 
                 <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
                         <i class="bi bi-circle"></i><span>Lap Akun Global</span>
                     </a>
@@ -1342,7 +1397,7 @@
 
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
                 <?php } ?>
@@ -1590,6 +1645,12 @@
                 </li>
 
                 <li>
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
+                        <i class="bi bi-circle"></i><span>Lap Pemasukan Media</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_akunMedia">
                         <i class="bi bi-circle"></i><span>Lap Akun Global</span>
                     </a>
@@ -1597,7 +1658,7 @@
 
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_harianMedia">
-                        <i class="bi bi-circle"></i><span>Lap Pemasukan Global</span>
+                        <i class="bi bi-circle"></i><span>Rincian Pemasukan</span>
                     </a>
                 </li>
 
@@ -3645,7 +3706,9 @@
         <!-- End Eprogram Page Nav -->
 
         <li class="nav-item"></i>
-            <a class="nav-link collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a class="nav-link collapsed"
+                href="https://localhost/dypa_ebudget/redirect.php?toAction=Ebudgeting&user=<?= $_SESSION["id_pengurus"] ?>"
+                target="_blank">
                 <i class="bi bi-stack"></i><span class="badge badge-danger badge-counter">New</span>
                 <span>DYPA Ebudgeting</span>
             </a>

@@ -9,12 +9,10 @@ $ip     = get_client_ip();
 
 $query = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip', '$date', '$_SESSION[nama] $_SESSION[posisi] Telah Logout dari halamannya')");
 // die(var_dump($query));
-session_start();
-$SESSION = [];
 session_destroy();
 session_unset();
-
-setcookie('login', '', time() - 43200);
+// die(var_dump($SESSION));
+setcookie('login', '', time() - 3600);
 
 header("Location: index.php");
 exit;

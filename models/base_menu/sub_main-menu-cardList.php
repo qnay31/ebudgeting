@@ -253,7 +253,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
         $cashbackBulanan5 = $hasil_anggaranBulanan5-$hasil_terpakaiBulanan5;
     }
 
-    $k6 = mysqli_query($conn, "SELECT * FROM 2022_data_anggaranBulanan_lain WHERE bulan = '$bulanan'");
+    $k6 = mysqli_query($conn, "SELECT * FROM 2022_anggaran_lainSembunyikan WHERE bulan = '$bulanan'");
     $skl6 = $k6;
     while($dBulanan6 = mysqli_fetch_array($skl6))
     {
@@ -594,6 +594,10 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income1,0,"." , ".") ?></h6>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=mediaGlobal&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1540,6 +1544,9 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income1,0,"." , ".") ?></h6>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=fbBogor&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1661,6 +1668,9 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_incomeGlobalTahun,0,"." , ".") ?></h6>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=mediaGlobal&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1696,7 +1706,16 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
-                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
+                    <?php if ($_SESSION["cabang"] == "Depok") { ?>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=fbDepok&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
+
+                    <?php } else { ?>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=fbBogor&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -1731,7 +1750,9 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
-                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia&idMedia=instagram&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1766,7 +1787,6 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
-                    <a id="detail-bulanan"><span class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
