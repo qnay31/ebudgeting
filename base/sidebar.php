@@ -1690,7 +1690,7 @@
                 </li>
 
                 <?php if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") { ?>
-                <?php } else { ?>
+                <?php  } else { ?>
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
                         <i class="bi bi-circle"></i><span>Lap Pemasukan Harian</span>

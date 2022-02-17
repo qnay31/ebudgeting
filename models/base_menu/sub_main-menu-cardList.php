@@ -1787,6 +1787,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($hasil_income,0,"." , ".") ?></h6>
+                    <a href="#"><span class="detail-bulanan maintenance">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
