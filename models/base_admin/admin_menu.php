@@ -122,7 +122,21 @@ if ($key_admin == "akunEbudget") {
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td><?= $r['id_pengurus'] ?></td>
                     <td><?= ucwords($r['nama']) ?></td>
-                    <td><?= ucwords($r['cabang']) ?></td>
+                    <td>
+                        <?= ucwords($r['cabang']) ?>
+                        <?php if ($r["id_pengurus"] == "facebook_depok" || $r["id_pengurus"] == "facebook_bogor" || $r["id_pengurus"] == "instagram") { ?>
+                        <a href="../models/base_admin/switchCabang.php?id_unik=<?= $r['id'] ?>">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                        <?php } ?>
+                    </td>
                     <td><?= $r['username'] ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
                     <td style="text-align: center;">
