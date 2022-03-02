@@ -446,6 +446,7 @@ include 'base/header.php'
     <?php } ?>
 
     <?php include 'modal/maintenance.php'; ?>
+    <?php include 'modal/kritikSaran.php'; ?>
 
     <?php
         include 'base/footer.php';

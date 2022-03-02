@@ -1,19 +1,32 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var splide = new Splide( '.splide', {
+document.addEventListener("DOMContentLoaded", function () {
+    new Splide('#splide', {
         speed: number = 2000,
-        perPage  : 3,
-        gap        : '1.4rem',
+        perPage: 3,
+        gap: '1.4rem',
         breakpoints: {
             765: {
                 perPage: 1,
             },
         }
-    } );
-    
-    splide.mount();
+    }).mount();
 });
 
-$("#management").change(function() {
+document.addEventListener("DOMContentLoaded", function () {
+
+    new Splide('#splide2', {
+        direction: 'ttb',
+        perPage: 3,
+        height: '10rem',
+        wheel: true,
+    }).mount();
+});
+
+
+$('.dropdown-menu.ketua-yayasan').on('click', function (e) {
+    e.stopPropagation();
+});
+
+$("#management").change(function () {
     // variabel dari nilai combo box 
     var management = $("#management").val();
     // console.log(id_kendaraan);
@@ -23,14 +36,14 @@ $("#management").change(function() {
         dataType: "html",
         url: "../list_management.php",
         data: "management=" + management,
-        success: function(data) {
+        success: function (data) {
             $("#bagian").html(data);
             // $("#tanggal").html(data);
         }
     });
 });
 
-$("#logistikGedung").change(function() {
+$("#logistikGedung").change(function () {
     // variabel dari nilai combo box 
     var logistikGedung = $("#logistikGedung").val();
     // console.log(id_kendaraan);
@@ -40,14 +53,49 @@ $("#logistikGedung").change(function() {
         dataType: "html",
         url: "../list_logistik.php",
         data: "logistikGedung=" + logistikGedung,
-        success: function(data) {
+        success: function (data) {
             $("#cabang").html(data);
             // $("#tanggal").html(data);
         }
     });
 });
 
-$(document).on('change', '.file-input', function() {
+$("#akun").change(function () {
+    // variabel dari nilai combo box 
+    var akun = $("#akun").val();
+    // console.log(id_kendaraan);
+    // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "../list_pertemanan.php",
+        data: "akun=" + akun,
+        success: function (data) {
+            $("#teman").html(data);
+            // $("#keterangan").html(data);
+            // $("#tanggal").html(data);
+        }
+    });
+});
+
+$("#kTeman").change(function () {
+    // variabel dari nilai combo box 
+    var kTeman = $("#kTeman").val();
+    // console.log(id_kendaraan);
+    // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "../list_keteranganTeman.php",
+        data: "kTeman=" + kTeman,
+        success: function (data) {
+            $("#keterangan").html(data);
+            // $("#tanggal").html(data);
+        }
+    });
+});
+
+$(document).on('change', '.file-input', function () {
 
     var filesCount = $(this)[0].files.length;
 
@@ -62,13 +110,13 @@ $(document).on('change', '.file-input', function() {
 
 
 
-    if (typeof(FileReader) != "undefined") {
+    if (typeof (FileReader) != "undefined") {
         var dvPreview = $("#divImageMediaPreview");
         dvPreview.html("");
-        $($(this)[0].files).each(function() {
+        $($(this)[0].files).each(function () {
             var file = $(this);
             var reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var img = $("<img />");
                 img.attr("style", "width: 100%; padding: 10px");
                 img.attr("src", e.target.result);
@@ -81,13 +129,13 @@ $(document).on('change', '.file-input', function() {
     }
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    var readURL = function(input) {
+    var readURL = function (input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
             }
 
@@ -95,11 +143,11 @@ $(document).ready(function() {
         }
     }
 
-    $(".file-upload").on('change', function() {
+    $(".file-upload").on('change', function () {
         readURL(this);
     });
 
-    $(".upload-button").on('click', function() {
+    $(".upload-button").on('click', function () {
         $(".file-upload").click();
     });
 });
@@ -390,181 +438,6 @@ rupiah2.addEventListener('keyup', function () {
 
 /* Fungsi formatRupiah */
 function formatRupiah2(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah3 = document.getElementById('rupiah3');
-rupiah3.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah3.value = formatRupiah3(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah3(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah4 = document.getElementById('rupiah4');
-rupiah4.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah4.value = formatRupiah4(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah4(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah5 = document.getElementById('rupiah5');
-rupiah5.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah5.value = formatRupiah5(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah5(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah6 = document.getElementById('rupiah6');
-rupiah6.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah6.value = formatRupiah6(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah6(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah7 = document.getElementById('rupiah7');
-rupiah7.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah7.value = formatRupiah7(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah7(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah8 = document.getElementById('rupiah8');
-rupiah8.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah8.value = formatRupiah8(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah8(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
-}
-
-var rupiah9 = document.getElementById('rupiah9');
-rupiah9.addEventListener('keyup', function () {
-    // tambahkan 'Rp.' pada saat form di ketik
-    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-    rupiah9.value = formatRupiah9(this.value, 'Rp. ');
-});
-
-/* Fungsi formatRupiah */
-function formatRupiah9(angka, prefix) {
     var number_string = angka.replace(/[^,\d]/g, '').toString(),
         split = number_string.split(','),
         sisa = split[0].length % 3,
