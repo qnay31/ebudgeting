@@ -355,6 +355,7 @@ $update = mysqli_query($conn, "UPDATE `income_media` SET
 WHERE id = '$id' ");
 
 if ($_SESSION["id_pengurus"] == "admin_web") {
+
 } elseif ($_SESSION["id_pengurus"] == "kepala_income") {
 
 $query = mysqli_query($conn, "SELECT * FROM income_media WHERE id = '$id'");

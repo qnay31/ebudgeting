@@ -267,7 +267,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
         $total_terpakaiBulanan6[$i] = $d_terpakaiBulanan6;
 
         $hasil_terpakaiBulanan6 = array_sum($total_terpakaiBulanan6);
-        $cashbackBulanan6 = $hasil_anggaranBulanan-$hasil_terpakaiBulanan6;
+        $cashbackBulanan6 = $hasil_anggaranBulanan6-$hasil_terpakaiBulanan6;
     }
 
     $k7 = mysqli_query($conn, "SELECT * FROM 2022_data_maintenance WHERE bulan = '$bulanan'");
@@ -606,7 +606,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
 
 <!-- Card -->
 <div class="col-xxl-12">
-    <div class="splide">
+    <div class="splide" id="splide">
         <div class="splide__track">
             <ul class="splide__list">
                 <!-- Program -->
@@ -913,6 +913,9 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($anggaran_globalBulanan,0,"." , ".") ?></h6>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_global&id_ebudget=globalData&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>
@@ -1007,7 +1010,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
 <?php } elseif ($_SESSION["id_pengurus"] == "kepala_pengajuan") { ?>
 <!-- Card -->
 <div class="col-xxl-12">
-    <div class="splide">
+    <div class="splide" id="splide">
         <div class="splide__track">
             <ul class="splide__list">
                 <!-- Program -->
@@ -1314,6 +1317,9 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
                 </div>
                 <div class="ps-3">
                     <h6>Rp. <?= number_format($anggaran_globalBulanan,0,"." , ".") ?></h6>
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_global&id_ebudget=globalData&id_periode=<?= $bln; ?>"><span
+                            class="detail-bulanan">Lihat bulanan →</span></a>
                 </div>
             </div>
         </div>

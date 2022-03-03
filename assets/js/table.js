@@ -648,14 +648,14 @@ $(document).ready(function () {
             searchPanes: {
                 show: false
             },
-            targets: [0, 1, 5, 7, 8, 9]
+            targets: [0, 1, 7, 8, 9]
         }, {
             searchPanes: {
                 show: true,
                 initCollapsed: true,
                 orderable: false
             },
-            targets: [2, 3, 4, 6]
+            targets: [2, 3, 4, 5, 6]
         }],
         "footerCallback": function (row, data, start, end, display) {
             var api = this.api(),
@@ -5005,6 +5005,114 @@ $(document).ready(function () {
                 rupiah + ''
             );
 
+        }
+    });
+
+    $('#tabel-globalBulanan').DataTable({
+        "scrollX": true,
+        responsive: true,
+        dom: 'Blfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                footer: true
+
+            },
+            'colvis'
+        ],
+        // "autoWidth": true,
+        columnDefs: [{
+            width: 150,
+            targets: 1
+        }, {
+            width: 100,
+            targets: 2
+        }, {
+            width: 150,
+            targets: [3, 4, 5]
+        }],
+
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\Rp,.]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+            // Total over this page
+            pageTotal = api
+                .column(3, {
+                    page: 'current'
+                })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            var number_string = pageTotal.toString(),
+                sisa = number_string.length % 3,
+                rupiah = number_string.substr(0, sisa),
+                ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            // Update footer
+            $(api.column(3).footer()).html(
+                'Rp. ' + rupiah
+            );
+
+            // Total over this page
+            pageTotal = api
+                .column(4, {
+                    page: 'current'
+                })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            var number_string = pageTotal.toString(),
+                sisa = number_string.length % 3,
+                rupiah = number_string.substr(0, sisa),
+                ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            // Update footer
+            $(api.column(4).footer()).html(
+                'Rp. ' + rupiah + ''
+            );
+
+            // Total over this page
+            pageTotal = api
+                .column(5, {
+                    page: 'current'
+                })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            var number_string = pageTotal.toString(),
+                sisa = number_string.length % 3,
+                rupiah = number_string.substr(0, sisa),
+                ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            // Update footer
+            $(api.column(5).footer()).html(
+                'Rp. ' + rupiah + ''
+            );
         }
     });
 });
