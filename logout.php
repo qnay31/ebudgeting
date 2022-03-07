@@ -13,6 +13,7 @@ session_destroy();
 session_unset();
 // die(var_dump($SESSION));
 setcookie('login', '', time() - 3600);
+setcookie('user', '', time() - 3600);
 
 header("Location: index.php");
 exit;

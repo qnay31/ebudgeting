@@ -1,16 +1,17 @@
 <?php
-        $q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Pending' ORDER BY `tgl_pemasukan` DESC");
-        $s = $q->num_rows;
+$q  = mysqli_query($conn, "SELECT * FROM 2022_income WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Pending' ORDER BY `tgl_pemasukan` DESC");
+$s = $q->num_rows;
 
-        $q2  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'Menunggu Verifikasi' ORDER BY `tanggal_tf` DESC");
-        $s2 = $q2->num_rows;
+$q2  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'Menunggu Verifikasi' ORDER BY `tanggal_tf` DESC");
+$s2 = $q2->num_rows;
 
-        $q3  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'OK' ORDER BY `tanggal_tf` DESC");
-        $s3 = $q3->num_rows;
+$q3  = mysqli_query($conn, "SELECT * FROM income_media WHERE status = 'OK' ORDER BY `tanggal_tf` DESC");
+$s3 = $q3->num_rows;
 
-        $k  = mysqli_query($conn, "SELECT * FROM 2022_incometanparesi WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' ORDER BY `tgl_pemasukan` DESC");
-        $l = $k->num_rows;
-// die(var_dump($s));
+$k  = mysqli_query($conn, "SELECT * FROM 2022_incometanparesi WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' ORDER BY `tgl_pemasukan` DESC");
+$l = $k->num_rows;
+$pToday = date("Y-m-d");
+$cToday = substr($pToday, 5, -3);
 ?>
 
 <main id="main" class="main">

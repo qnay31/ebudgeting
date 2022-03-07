@@ -4,7 +4,8 @@
         <div class="text-center">
             <label for="">
                 <b style="color: black;">Tabel Verifikasi Pemasukan Media Sosial</b>
-                <a class="btn btn-primary" href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck"
+                <a class="btn btn-primary"
+                    href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck&id_periode=<?= $cToday; ?>"
                     data-bs-toggle="tooltip" data-bs-placement="top" title="CrossCheck Income">
                     <i class="bi bi-eye text-white"></i></a>
                 <hr>

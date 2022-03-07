@@ -24,7 +24,18 @@ $table = 'income_media';
 // Table's primary key
 $primaryKey = 'id';
 
-$where  = "status = 'OK' ORDER BY `tanggal_tf` DESC ";
+if ($_SESSION["id_pengurus"] == "admin_web") {
+    $where  = "status = 'OK' ORDER BY `id` DESC ";
+
+} else {
+    if ($_SESSION["id_periode"] == "") {
+        $where  = "status = 'OK' ORDER BY `tanggal_tf` DESC ";
+    } else {
+        $where  = "MONTH(tanggal_tf) = '$_SESSION[id_periode]' AND status = 'OK' ORDER BY `tanggal_tf` DESC ";
+    }
+    
+}
+
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`

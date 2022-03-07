@@ -50,6 +50,14 @@
             </a>
         </li>
 
+        <?php } elseif ($_GET["id_accountKey"] == true && $_SESSION["id_pengurus"] == "ketua_yayasan") { ?>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
         <?php } else { ?>
         <li class="nav-item">
             <a class="nav-link" href="<?= $_SESSION["username"] ?>.php">
@@ -59,6 +67,13 @@
         </li>
 
         <?php } ?>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php?idTeam=timFacebook">
+                <i class="bi bi-people"></i>
+                <span>Teaming</span>
+            </a>
+        </li>
 
         <?php if (
             $_GET["id_database"] == "database_global" || 
@@ -1403,6 +1418,10 @@
                 <?php } ?>
 
                 <?php } elseif ($_SESSION["id_pengurus"] == "kepala_income") { ?>
+                <?php
+                    $pToday = date("Y-m-d");
+                    $cToday = substr($pToday, 5, -3);
+                ?>
                 <?php if ($_GET["id_database"] == "database_harianMedia") { ?>
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
@@ -1417,7 +1436,8 @@
                 </li>
 
                 <li>
-                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck&id_periode=<?= $cToday; ?>">
                         <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
@@ -1436,7 +1456,8 @@
                 </li>
 
                 <li>
-                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck" class="active">
+                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck&id_periode=<?= $cToday; ?>"
+                        class="active">
                         <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
@@ -1455,7 +1476,8 @@
                 </li>
 
                 <li>
-                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck&id_periode=<?= $cToday; ?>">
                         <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
@@ -1663,6 +1685,10 @@
                 </li>
 
                 <?php } elseif ($_SESSION["id_pengurus"] == "kepala_income") { ?>
+                <?php
+                $pToday = date("Y-m-d");
+                $cToday = substr($pToday, 5, -3);
+                ?>
                 <li>
                     <a href="<?= $_SESSION["username"] ?>.php?id_database=database_pemasukanMedia">
                         <i class="bi bi-circle"></i><span>Pemasukan Media (Sahila)</span>
@@ -1676,7 +1702,8 @@
                 </li>
 
                 <li>
-                    <a href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck">
+                    <a
+                        href="<?= $_SESSION["username"] ?>.php?id_database=database_crossCheck&id_periode=<?= $cToday; ?>">
                         <i class="bi bi-circle"></i><span>Crosscheck Income</span>
                     </a>
                 </li>
@@ -3581,7 +3608,7 @@
             </a>
         </li>
 
-        <?php } elseif ($_GET["id_profil"] == "dataPengurus") { ?>
+        <?php } elseif ($_GET["id_profil"] == "dataPengurus" || $_GET["id_accountKey"] == true) { ?>
         <li class="nav-item">
             <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php?id_profil=myProfil">
                 <i class="bi bi-person"></i>

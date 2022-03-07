@@ -960,7 +960,6 @@ if (isset($_POST["balasSaran"]) ) {
 <li class="nav-item dropdown" id="showEdit">
     <a class="nav-link nav-icon showDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-megaphone"></i>
-        <span class="badge bg-danger badge-number">New</span>
 
     </a><!-- End Notification Icon -->
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications ketua-yayasan">

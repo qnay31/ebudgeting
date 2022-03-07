@@ -1,8 +1,20 @@
 <div class="card-body">
-    <h5 class="card-title">DATABASE CROSSCHECK GLOBAL</h5>
+    <h5 class="card-title">DATABASE CROSSCHECK</h5>
 
     <div class="table-responsive">
-        <h5 class="card-title text-center">Laporan CrossCheck</h5>
+        <?php if ($_SESSION["id_periode"] == "") { ?>
+        <h5 class="card-title text-center">CrossCheck Global</h5>
+
+        <?php } else { ?>
+        <?php if ($nInCheck > 0) { ?>
+        <h5 class="card-title text-center">CrossCheck <?= $inCheckT; ?></h5>
+
+        <?php } else { ?>
+        <h5 class="card-title text-center">Tidak ada data</h5>
+        <?php } ?>
+        <?php } ?>
+
+        <?php if ($nInCheck > 0) { ?>
         <table id="tabel-data_databaseCrossCheck" class="table table-bordered">
             <thead>
                 <tr style="text-align: center;">
@@ -28,5 +40,6 @@
                 </tr>
             </tfoot>
         </table>
+        <?php } ?>
     </div>
 </div>
