@@ -5,7 +5,7 @@
     <title>Dashboard - Ebudgeting Alkirom Amanah</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <?php if ($_GET["id_profil"] == "logActivity") { ?>
+    <?php if ($_GET["id_profil"] == "logActivity" || $_GET["id_adminKey"] == "logActivity") { ?>
     <meta http-equiv="refresh" content="300" />
     <?php } ?>
 
@@ -35,7 +35,9 @@
     <?php if (
     $_SESSION["id_pengurus"] == "ketua_yayasan" ||
     $_SESSION["id_pengurus"] == "management_keuangan" ||
-    $_SESSION["id_pengurus"] == "kepala_pengajuan"
+    $_SESSION["id_pengurus"] == "kepala_pengajuan" ||
+    $_SESSION["id_pengurus"] == "manager_facebook" ||
+    $_SESSION["id_pengurus"] == "manager_instagram"
     ) { ?>
     <link rel="stylesheet" href="../assets/css/splide.min.css">
     <link rel="stylesheet" href="../assets/css/themes/splide-skyblue.min.css">

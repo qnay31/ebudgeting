@@ -12,19 +12,6 @@ if ($key_admin == "akunEbudget") {
     $admin_judul = "DATA $j_view";
 
     if ($key_admin == "program") {
-        if (isset($_POST["ubah_s"]) ) {
-            $link = $_SESSION["username"];
-            if(ubah_status($_POST) > 0 ) {
-                echo "<script>
-                        alert('Status Berhasil Diubah');
-                        document.location.href = '$link.php?id_adminKey=$key_admin';
-                    </script>";
-            } 
-                else {
-                echo mysqli_error($conn);
-            }
-        }
-    
         if (isset($_POST["input"]) ) {
             $link = $_SESSION["username"];
             if(edit_anggaran_program($_POST) > 0 ) {
@@ -51,14 +38,36 @@ if ($key_admin == "akunEbudget") {
             }
         }
     } else {
-        
+        if (isset($_POST["input"]) ) {
+            $link = $_SESSION["username"];
+            if(edit_anggaran_logistik($_POST) > 0 ) {
+                echo "<script>
+                        alert('Data anggaran Berhasil Diedit');
+                        document.location.href = '$link.php?id_adminKey=$key_admin';
+                    </script>";
+            } 
+                else {
+                echo mysqli_error($conn);
+            }
+        }
+    
+        if (isset($_POST["edit_laporan"]) ) {
+            $link = $_SESSION["username"];
+            if(edit_laporan_logistik($_POST) > 0 ) {
+                echo "<script>
+                    alert('Data Laporan Berhasil diubah');
+                    document.location.href = '$link.php?id_adminKey=$key_admin';
+                </script>";            
+            } 
+                else {
+                echo mysqli_error($conn);
+            }
+        }
     }
     
 
-
-
 } elseif ($key_admin == "data_akun") {
-    $q  = mysqli_query($conn, "SELECT * FROM $key_admin ORDER BY `pemegang` DESC");
+    $q  = mysqli_query($conn, "SELECT * FROM $key_admin ORDER BY `pemegang` ASC");
     $j_view     = strtoupper($key_admin);
     $admin_judul = "$j_view";
 
@@ -94,6 +103,32 @@ if ($key_admin == "akunEbudget") {
     $q  = mysqli_query($conn, "SELECT * FROM 2022_$key_admin ORDER BY `tgl_dibuat` DESC");
     $j_view     = strtoupper($key_admin);
     $admin_judul = "DATA $j_view";
+
+    if (isset($_POST["input"]) ) {
+        $link = $_SESSION["username"];
+        if(edit_anggaran_management($_POST) > 0 ) {
+            echo "<script>
+                    alert('Data anggaran Berhasil Diedit');
+                    document.location.href = '$link.php?id_adminKey=$key_admin';
+                </script>";
+        } 
+            else {
+            echo mysqli_error($conn);
+        }
+    }
+
+    if (isset($_POST["edit_laporan"]) ) {
+        $link = $_SESSION["username"];
+        if(edit_laporan_management($_POST) > 0 ) {
+            echo "<script>
+                    alert('Data Laporan Berhasil diubah');
+                    document.location.href = '$link.php?id_adminKey=$key_admin';
+                </script>";            
+        } 
+            else {
+            echo mysqli_error($conn);
+        }
+    }
 }
 
 ?>
@@ -186,7 +221,20 @@ if ($key_admin == "akunEbudget") {
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td><?= ucwords($r['program']) ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['cabang']) ?></td>
+                    <td style="text-align: center;">
+                        <?= ucwords($r['cabang']) ?>
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=cabang&id_kategori=program">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                    </td>
                     <td style="text-align: center;">
                         <?php if ($r["laporan"] == "Terverifikasi") { ?>
                         <?= $bulan ?>
@@ -217,7 +265,14 @@ if ($key_admin == "akunEbudget") {
 
                     </td>
                     <td><?= number_format($terpakai) ?></td>
-                    <td><?= number_format($sisa) ?></td>
+                    <td>
+                        <?php if ($terpakai > 0) { ?>
+                        <?= number_format($sisa) ?>
+
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                     <td style="text-align: center;">
                         <a href="" data-bs-toggle="modal" data-bs-target="#program_<?= $r["id"] ?>"><i
                                 class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -231,8 +286,13 @@ if ($key_admin == "akunEbudget") {
                         <a href="../models/forms/hapus_laporan/hapus_lapProgram.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln2 ?>"
                             onclick="return confirm('Yakin Laporan ini mau dihapus?!')" data-bs-toggle=" modal"
                             data-bs-target="#hapus_<?= $r["id"] ?>"><i class="bi bi-trash" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Hapus Laporan"></i></a>
+                                data-bs-placement="top" title="Hapus Laporan"></i></a>&nbsp;|
 
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=laporan&id_kategori=program">
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ubah status laporan?!')"></i>
+                        </a>
                         <?php } else { ?>
                         <a href="../models/forms/hapus_pengajuan/hapus_program.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
                             onclick="return confirm('Yakin anggaran ini mau dihapus?!')"><i class="bi bi-trash"
@@ -291,19 +351,45 @@ if ($key_admin == "akunEbudget") {
                 $anggaran = $r['dana_anggaran'];
                 $terpakai = $r['dana_terpakai'];
                 $sisa = $anggaran - $terpakai;
+                $bln       = substr($r['tgl_pengajuan'], 5,-3);
+                $bln2       = substr($r['tgl_pemakaian'], 5,-3);
                 ?>
                 <tr>
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td><?= ucwords($r['logistik']) ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['cabang']) ?></td>
-                    <td style="text-align: center;"><?= $bulan ?></td>
+                    <td style="text-align: center;">
+                        <?= ucwords($r['cabang']) ?>
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=cabang&id_kategori=logistik">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <?= $bulan ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                     <td style="text-align: center;">
                         <?= date('d-m-Y', strtotime($r['tgl_pengajuan'])); ?></td>
                     <td><?= ucwords($r['deskripsi']) ?></td>
                     <td><?= number_format($anggaran) ?></td>
                     <td style="text-align: center;">
-                        <?= date('d-m-Y', strtotime($r['tgl_pemakaian'])); ?></td>
+                        <?php if ($r["laporan"] == "Belum Laporan") { ?>
+                        -
+                        <?php } else { ?>
+                        <?= date('d-m-Y', strtotime($r['tgl_pemakaian'])); ?>
+                        <?php } ?>
+                    </td>
                     <td><?= ucwords($r['deskripsi_pemakaian']) ?></td>
                     <td style="text-align: center;">
                         <?php if ($r['laporan'] == "Terverifikasi") { ?>
@@ -314,17 +400,48 @@ if ($key_admin == "akunEbudget") {
                         <?php } ?>
                     </td>
                     <td><?= number_format($terpakai) ?></td>
-                    <td><?= number_format($sisa) ?></td>
-                    <td style="text-align: center;">
-                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
-                        <a href=""><i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Ubah Status"></i></a>&nbsp;|
+                    <td>
+                        <?php if ($terpakai > 0) { ?>
+                        <?= number_format($sisa) ?>
+
+                        <?php } else { ?>
+                        -
                         <?php } ?>
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
                     </td>
+                    <td style="text-align: center;">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#program_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Anggaran"></i></a>&nbsp;|
+
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#laporan_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Laporan"></i></a>&nbsp;|
+
+                        <a href="../models/forms/hapus_laporan/hapus_lapLogistik.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln2 ?>"
+                            onclick="return confirm('Yakin Laporan ini mau dihapus?!')" data-bs-toggle=" modal"
+                            data-bs-target="#hapus_<?= $r["id"] ?>"><i class="bi bi-trash" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Hapus Laporan"></i></a>&nbsp;|
+
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=laporan&id_kategori=logistik">
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ubah status laporan?!')"></i>
+                        </a>
+                        <?php } else { ?>
+                        <a href="../models/forms/hapus_pengajuan/hapus_logistik.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
+                            onclick="return confirm('Yakin anggaran ini mau dihapus?!')"><i class="bi bi-trash"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Anggaran"></i></a>
+                        <?php } ?>
+                    </td>
+
+                    <?php include '../modal/logistik/edit_logistik.php'; ?>
+
+                    <?php if ($r["laporan"] == "Terverifikasi") { ?>
+
+                    <?php include '../modal/logistik/edit_lapLogistik.php'; ?>
+
+                    <?php } ?>
                 </tr>
                 <?php } ?>
             </tbody>
@@ -372,14 +489,35 @@ if ($key_admin == "akunEbudget") {
                 $anggaran = $r['dana_anggaran'];
                 $terpakai = $r['dana_terpakai'];
                 $sisa = $anggaran - $terpakai;
+                $bln       = substr($r['tgl_dibuat'], 5,-3);
+                $bln2       = substr($r['tgl_laporan'], 5,-3);
                 ?>
                 <tr>
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td style="text-align: center;"><?= ucwords($r['kategori']) ?></td>
                     <td><?= ucwords($r['jenis']) ?></td>
                     <td style="text-align: center;"><?= ucwords($r['posisi']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['cabang']) ?></td>
-                    <td style="text-align: center;"><?= $bulan ?></td>
+                    <td style="text-align: center;">
+                        <?= ucwords($r['cabang']) ?>
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=cabang&id_kategori=<?= $_GET["id_adminKey"]; ?>">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <?= $bulan ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                     <td style="text-align: center;">
                         <?= date('d-m-Y', strtotime($r['tgl_dibuat'])); ?></td>
                     <td><?= ucwords($r['deskripsi']) ?></td>
@@ -390,7 +528,12 @@ if ($key_admin == "akunEbudget") {
                     </td>
                     <td><?= number_format($anggaran) ?></td>
                     <td style="text-align: center;">
-                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?></td>
+                        <?php if ($r["laporan"] == "Belum Laporan") { ?>
+                        -
+                        <?php } else { ?>
+                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?>
+                        <?php } ?>
+                    </td>
                     <td><?= ucwords($r['pemakaian']) ?></td>
                     <td style="text-align: center;">
                         <?php if ($r["jenis"] == "Pembelian Barang") { ?>
@@ -406,17 +549,48 @@ if ($key_admin == "akunEbudget") {
                         <?php } ?>
                     </td>
                     <td><?= number_format($terpakai) ?></td>
-                    <td><?= number_format($sisa) ?></td>
-                    <td style="text-align: center;">
-                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
-                        <a href=""><i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Ubah Status"></i></a>&nbsp;|
+                    <td>
+                        <?php if ($terpakai > 0) { ?>
+                        <?= number_format($sisa) ?>
+
+                        <?php } else { ?>
+                        -
                         <?php } ?>
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
                     </td>
+                    <td style="text-align: center;">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#program_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Anggaran"></i></a>&nbsp;|
+
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#laporan_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Laporan"></i></a>&nbsp;|
+
+                        <a href="../models/forms/hapus_laporan/hapus_lapManagement.php?id_dataManagement=<?= $_GET["id_adminKey"]; ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln2 ?>"
+                            onclick="return confirm('Yakin Laporan ini mau dihapus?!')" data-bs-toggle=" modal"
+                            data-bs-target="#hapus_<?= $r["id"] ?>"><i class="bi bi-trash" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Hapus Laporan"></i></a>&nbsp;|
+
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=laporan&id_kategori=<?= $_GET["id_adminKey"]; ?>">
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ubah status laporan?!')"></i>
+                        </a>
+                        <?php } else { ?>
+                        <a href="../models/forms/hapus_pengajuan/hapus_management.php?id_dataManagement=<?= $_GET["id_adminKey"]; ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
+                            onclick="return confirm('Yakin anggaran ini mau dihapus?!')"><i class="bi bi-trash"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Anggaran"></i></a>
+                        <?php } ?>
+                    </td>
+
+                    <?php include '../modal/management/edit_management.php'; ?>
+
+                    <?php if ($r["laporan"] == "Terverifikasi") { ?>
+
+                    <?php include '../modal/management/edit_lapManagement.php'; ?>
+
+                    <?php } ?>
                 </tr>
                 <?php } ?>
             </tbody>
@@ -424,7 +598,8 @@ if ($key_admin == "akunEbudget") {
                 <tr style="text-align: center;">
                     <th colspan="8">Total</th>
                     <th></th>
-                    <th colspan="3">Total</th>
+                    <th></th>
+                    <th colspan="2">Total</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -456,7 +631,22 @@ if ($key_admin == "akunEbudget") {
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td><?= $r['id_pengurus'] ?></td>
                     <td><?= ucwords($r['pemegang']) ?></td>
-                    <td><?= ucwords($r['cabang']) ?></td>
+                    <td>
+                        <?= ucwords($r['cabang']) ?>
+                        <?php if ($r["id_pengurus"] == "facebook_depok" || $r["id_pengurus"] == "facebook_bogor" || $r["id_pengurus"] == "instagram") { ?>
+                        <a
+                            href="../models/base_admin/switchCabang.php?id_unik=<?= $r['nomor_id'] ?>&idCabang=akunMedia&namaAkun=<?= $r['nama_akun'] ?>">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                        <?php } ?>
+                    </td>
                     <td><?= $r['nama_akun'] ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
                     <td>
@@ -668,19 +858,45 @@ if ($key_admin == "akunEbudget") {
                 $anggaran = $r['dana_anggaran'];
                 $terpakai = $r['dana_terpakai'];
                 $sisa = $anggaran - $terpakai;
+                $bln       = substr($r['tgl_dibuat'], 5,-3);
+                $bln2      = substr($r['tgl_laporan'], 5,-3);
                 ?>
                 <tr>
                     <td style="text-align: center;"><?= $no++ ?></td>
                     <td style="text-align: center;"><?= ucwords($r['kategori']) ?></td>
                     <td style="text-align: center;"><?= ucwords($r['posisi']) ?></td>
-                    <td style="text-align: center;"><?= ucwords($r['cabang']) ?></td>
-                    <td style="text-align: center;"><?= $bulan ?></td>
+                    <td style="text-align: center;">
+                        <?= ucwords($r['cabang']) ?>
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=cabang&id_kategori=<?= $_GET["id_adminKey"]; ?>">
+                            <?php if ($r['cabang'] == "Depok") { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Bogor?!')"></i>
+
+                            <?php } else { ?>
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ganti Cabang ke Depok?!')"></i>
+                            <?php } ?>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <?= $bulan ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                     <td style="text-align: center;">
                         <?= date('d-m-Y', strtotime($r['tgl_dibuat'])); ?></td>
                     <td><?= ucwords($r['deskripsi']) ?></td>
                     <td><?= number_format($anggaran) ?></td>
                     <td style="text-align: center;">
-                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?></td>
+                        <?php if ($r["laporan"] == "Belum Laporan") { ?>
+                        -
+                        <?php } else { ?>
+                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?>
+                        <?php } ?>
+                    </td>
                     <td><?= ucwords($r['pemakaian']) ?></td>
                     <td style="text-align: center;">
                         <?php if ($r['laporan'] == "Terverifikasi") { ?>
@@ -691,17 +907,48 @@ if ($key_admin == "akunEbudget") {
                         <?php } ?>
                     </td>
                     <td><?= number_format($terpakai) ?></td>
-                    <td><?= number_format($sisa) ?></td>
-                    <td style="text-align: center;">
-                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
-                        <a href=""><i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Ubah Status"></i></a>&nbsp;|
+                    <td>
+                        <?php if ($terpakai > 0) { ?>
+                        <?= number_format($sisa) ?>
+
+                        <?php } else { ?>
+                        -
                         <?php } ?>
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
                     </td>
+                    <td style="text-align: center;">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#program_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Anggaran"></i></a>&nbsp;|
+
+                        <?php if ($r["laporan"] == "Terverifikasi") { ?>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#laporan_<?= $r["id"] ?>"><i
+                                class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Edit Laporan"></i></a>&nbsp;|
+
+                        <a href="../models/forms/hapus_laporan/hapus_lapManagement.php?id_dataManagement=<?= $_GET["id_adminKey"]; ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln2 ?>"
+                            onclick="return confirm('Yakin Laporan ini mau dihapus?!')" data-bs-toggle=" modal"
+                            data-bs-target="#hapus_<?= $r["id"] ?>"><i class="bi bi-trash" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Hapus Laporan"></i></a>&nbsp;|
+
+                        <a
+                            href="../models/base_admin/switchLaporan.php?id_unik=<?= $r['id'] ?>&idSwitch=laporan&id_kategori=<?= $_GET["id_adminKey"]; ?>">
+                            <i class="bi bi-arrow-left-right" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ganti" onclick="return confirm('Ubah status laporan?!')"></i>
+                        </a>
+                        <?php } else { ?>
+                        <a href="../models/forms/hapus_pengajuan/hapus_management.php?id_dataManagement=<?= $_GET["id_adminKey"]; ?>&id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
+                            onclick="return confirm('Yakin anggaran ini mau dihapus?!')"><i class="bi bi-trash"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Anggaran"></i></a>
+                        <?php } ?>
+                    </td>
+
+                    <?php include '../modal/management/edit_management.php'; ?>
+
+                    <?php if ($r["laporan"] == "Terverifikasi") { ?>
+
+                    <?php include '../modal/management/edit_lapManagement.php'; ?>
+
+                    <?php } ?>
                 </tr>
                 <?php } ?>
             </tbody>

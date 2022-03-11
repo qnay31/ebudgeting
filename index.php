@@ -3,6 +3,30 @@ session_start();
 error_reporting(0);
 require 'function.php';
 
+if (isset($_COOKIE["login"])) {
+    $username = $_COOKIE["login"];
+    
+    $qLogin = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE username = '$username'");
+    if (mysqli_num_rows($qLogin) === 1) {
+        $data = mysqli_fetch_assoc($qLogin);
+        // die(var_dump($data));
+        $_SESSION["halaman_utama"]      = true ;
+        $_SESSION["id"]           = $data["id"];
+		$_SESSION["id_pengurus"]  = $data["id_pengurus"];
+        $_SESSION["nama"]         = $data["nama"];
+        $_SESSION["cabang"]       = $data["cabang"];
+        $_SESSION["username"]     = $data["username"];
+        $_SESSION["profil"]       = $data["profil"];
+        $_SESSION["password"]     = $data["password"];
+        $_SESSION["posisi"]       = $data["posisi"];
+
+        header("Location: admin/$_SESSION[username].php");
+    } else {
+        header("Location: logout.php");
+    }
+    exit;
+}
+
 if (isset($_SESSION["halaman_utama"])) {
     header("Location: admin/$_SESSION[username].php");
     exit;
@@ -34,8 +58,6 @@ $ip     = get_client_ip();
 
             if($row['username'] == "$username"){
         $_SESSION["halaman_utama"]      = true ;
-
-        setcookie('login', 'true', time() + 43200 );
         
 		// buat session login dan username ADMIN
 		$_SESSION["id"]           = $row["id"];
@@ -47,6 +69,7 @@ $ip     = get_client_ip();
         $_SESSION["password"]     = $row["password"];
         $_SESSION["posisi"]       = $row["posisi"];
 
+        setcookie('login', $_SESSION['username'], time() + 43200 );
         // die(var_dump($data));
 
         mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip', '$date', '$_SESSION[nama] Telah Login Halaman $_SESSION[posisi]')");
@@ -140,6 +163,9 @@ if(isset($_GET['pesan'])){
                                         <input type="submit" name="login" class="btn btn-success btn-user btn-block"
                                             value="MASUK">
                                     </form>
+                                    <div class="lupaSandi">
+                                        <a class="small" href="register.php">Lupa kata sandi!</a>
+                                    </div>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="register.php">Buat Akun Baru!</a>

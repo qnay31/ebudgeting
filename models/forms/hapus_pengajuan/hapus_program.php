@@ -44,8 +44,4 @@ if ($_SESSION["id_pengurus"] == "admin_web") {
         </script>";
     }
 }
-
-
-
-
 ?>

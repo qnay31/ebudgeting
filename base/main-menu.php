@@ -26,7 +26,12 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= $_SESSION["username"] ?>.php">Home</a></li>
+                <?php if ($_GET["id_adminKey"] == "") { ?>
                 <li class="breadcrumb-item active">Dashboard</li>
+
+                <?php } else { ?>
+                <li class="breadcrumb-item active"><?= ucwords($_GET["id_adminKey"]); ?></li>
+                <?php } ?>
             </ol>
         </nav>
     </div><!-- End Page Title -->

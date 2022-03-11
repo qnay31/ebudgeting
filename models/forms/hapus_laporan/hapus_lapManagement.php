@@ -48,20 +48,34 @@ if ($id_management == "aset_yayasan") {
 $query3 = mysqli_query($conn, "DELETE FROM `2022_galeri_$id_management` WHERE nomor_id = '$unik' AND program = '$kategori'");
 
 // die(var_dump($query3));
-$result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip', '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menghapus Laporan $logistik')");
+if ($_SESSION["id_pengurus"] == "admin_web") {
+    if ($query2 == true) {
+        echo "<script>
+        alert('Data Berhasil Dihapus');
+        document.location.href = '../../../admin/$_SESSION[username].php?id_adminKey=$id_management';
+        </script>";
 
-if ($query2 == true) {
-    echo "<script>
-    alert('Data Berhasil Dihapus');
-    document.location.href = '../../../admin/$_SESSION[username].php?id_forms=forms_laporan&id_dataManagement=$id_management';
-    </script>";
+    }  else {
+        echo "<script>
+        alert('Data Tidak Berhasil Dihapus');
+        document.location.href = '../../../admin/$_SESSION[username].php?id_adminKey=$id_management';
+        </script>";
+    }
+
 } else {
-    echo "<script>
-    alert('Data Tidak Berhasil Dihapus');
-    document.location.href = '../../../admin/$_SESSION[username].php?id_forms=forms_laporan&id_dataManagement=$id_management';
-    </script>";
+    $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip', '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menghapus Laporan $katagori')");
+
+    if ($query2 == true) {
+        echo "<script>
+        alert('Data Berhasil Dihapus');
+        document.location.href = '../../../admin/$_SESSION[username].php?id_forms=forms_laporan&id_dataManagement=$id_management';
+        </script>";
+    } else {
+        echo "<script>
+        alert('Data Tidak Berhasil Dihapus');
+        document.location.href = '../../../admin/$_SESSION[username].php?id_forms=forms_laporan&id_dataManagement=$id_management';
+        </script>";
+    }
 }
-
-
 
 ?>

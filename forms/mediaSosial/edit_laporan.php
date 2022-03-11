@@ -23,6 +23,16 @@ if (isset($_POST["input"]) ) {
 
     $q3  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND id = '$unik' AND MONTH(tgl_laporan) = '$periode' ORDER BY `tgl_laporan` DESC");
     $data   = mysqli_fetch_assoc($q3);
+    $dataTeman = $data["jumlahTeman"];
+    $temanBaru = $data["temanBaru"];
+    $hapusTeman = $data["hapusTeman"];
+
+    if ($data["keterangan"] == "Tambah Teman") {
+        $dataOld = $dataTeman-$temanBaru;
+    } else {
+        $dataOld = $dataTeman-$hapusTeman;
+    }
+
 ?>
 
 <main id="main" class="main">

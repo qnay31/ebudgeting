@@ -5,11 +5,15 @@ $(document).ready(function () {
         $('#modalDaily #teman').empty();
         $('#modalDaily #keterangan').empty();
         $('#modalDaily #divImageMediaPreview').empty();
-        $('#modalLaporan #saran').empty();
     });
 
     $("#modalLaporan").on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
+    });
+
+    $(".akun_media").on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+        $('.akun_media .mID').empty();
     });
 
     $('.admin_rp').mask('000.000.000', {
@@ -223,8 +227,7 @@ $(document).ready(function () {
             width: 100,
             targets: 5,
             "render": function (data) {
-                var key = "kepala_income";
-                var btn = "<center><a href=\"../admin/" + key + ".php?id_adminKey=edit_income&id_unik=" + data + "\" onclick=\"return confirm('Data akan diedit?')\" class=\"btn btn-primary btn-xs\"><i class=\"bi bi-pencil-square\"></i></a> | <a href=\"../models/base_admin/hapus_income.php?id_unik=" + data + "\" onclick=\"return confirm('Data akan dihapus?')\" class=\"btn btn-danger btn-xs\"><i class=\"bi bi-trash\"></i></a></center>"
+                var btn = "<center><a href=\"../models/base_admin/hapus_income.php?id_unik=" + data + "\" onclick=\"return confirm('Data akan dihapus?')\" class=\"btn btn-danger btn-xs\"><i class=\"bi bi-trash\"></i></a></center>"
                 return btn;
             }
         }, {

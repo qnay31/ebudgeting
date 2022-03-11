@@ -318,9 +318,10 @@ $date = date("Y-m-d H:i:s");
 $result = mysqli_query($conn, "INSERT INTO income_media VALUES('', '$link', '$id', '$_SESSION[nama]',
 '$akun', '$_SESSION[cabang]', '$namaDonatur', '$tanggal', '$jam', '$bank', '$income', 'Menunggu Verifikasi')");
 
+$today = date('d-m-Y', strtotime($tanggal));
 // input data ke database
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
-'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menginput income akun $akun hari ini')");
+'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menginput income akun $akun tanggal $today')");
 
 // die(var_dump($simpan));
 return mysqli_affected_rows($conn);
@@ -345,14 +346,6 @@ $income = str_replace(' ', '', $anggar);
 $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 // die(var_dump($oldTanggal));
-// update_target
-$update = mysqli_query($conn, "UPDATE `income_media` SET
-`nama_donatur` ='$namaDonatur',
-`tanggal_tf` ='$tanggal',
-`jam_tf`= '$jam',
-`bank`= '$bank',
-`jumlah_tf` ='$income'
-WHERE id = '$id' ");
 
 if ($_SESSION["id_pengurus"] == "admin_web") {
 
@@ -452,9 +445,20 @@ $inpIncome = mysqli_query($conn, "INSERT INTO 2022_income VALUES('', '$_SESSION[
 }
 
 } else {
+$today = date('d-m-Y', strtotime($tanggal));
+
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
-'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah income akun $akun')");
+'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah income akun $akun pada tanggal $today')");
 }
+
+// update_target
+$update = mysqli_query($conn, "UPDATE `income_media` SET
+`nama_donatur` ='$namaDonatur',
+`tanggal_tf` ='$tanggal',
+`jam_tf`= '$jam',
+`bank`= '$bank',
+`jumlah_tf` ='$income'
+WHERE id = '$id' ");
 
 
 // die(var_dump($update));
@@ -737,6 +741,16 @@ $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
 if ($_SESSION["id_pengurus"] == "admin_web") {
+$qProgram = mysqli_query($conn, "SELECT * FROM 2022_program WHERE id = '$id'");
+$dProgram = mysqli_fetch_assoc($qProgram);
+$laporan = $dProgram["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_program` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
+
 } else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$posisi', '$ip',
 '$date', '$_SESSION[nama] Divisi $posisi Telah Mengubah Anggaran $program')");
@@ -856,6 +870,15 @@ $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
 if ($_SESSION["id_pengurus"] == "admin_web") {
+$qProgram = mysqli_query($conn, "SELECT * FROM 2022_program WHERE id = '$id'");
+$dProgram = mysqli_fetch_assoc($qProgram);
+$laporan = $dProgram["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_program` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
 } else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
 '$date', '$_SESSION[nama] $_SESSION[posisi] Telah Mengubah Laporan Program $program')");
@@ -1101,8 +1124,21 @@ $anggaran = str_replace(' ', '', $anggar);
 $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
+if ($_SESSION["id_pengurus"] == "admin_web") {
+$qLogistik = mysqli_query($conn, "SELECT * FROM 2022_logistik WHERE id = '$id'");
+$dLogistik = mysqli_fetch_assoc($qLogistik);
+$laporan = $dLogistik["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_logistik` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
+
+} else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
 '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah Anggaran $logistik')");
+}
 
 // update_target
 $update = mysqli_query($conn, "UPDATE `2022_logistik` SET
@@ -1110,11 +1146,9 @@ $update = mysqli_query($conn, "UPDATE `2022_logistik` SET
 `deskripsi`= '$deskripsi',
 `dana_anggaran` ='$anggaran'
 WHERE id = '$id' ");
-
 // die(var_dump($update));
-
-// die(var_dump($result));
 return mysqli_affected_rows($conn);
+
 }
 
 // laporan logistik
@@ -1213,9 +1247,22 @@ $anggaran = str_replace(' ', '', $anggar);
 $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
+if ($_SESSION["id_pengurus"] == "admin_web") {
+$qLogistik = mysqli_query($conn, "SELECT * FROM 2022_logistik WHERE id = '$id'");
+$dLogistik = mysqli_fetch_assoc($qLogistik);
+$laporan = $dLogistik["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_logistik` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
+
+} else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
 '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah Laporan Program $program menjadi
 $deskripsi')");
+}
 
 // update_target
 $update = mysqli_query($conn, "UPDATE `2022_logistik` SET
@@ -1290,8 +1337,21 @@ $anggaran = str_replace(' ', '', $anggar);
 $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
+if ($_SESSION["id_pengurus"] == "admin_web") {
+$qManagement = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE id = '$id'");
+$dManagement = mysqli_fetch_assoc($qManagement);
+$laporan = $dManagement["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_$id_management` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
+
+} else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
 '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah Anggaran $management')");
+}
 
 // update_target
 if ($management == "Aset Yayasan") {
@@ -1444,8 +1504,22 @@ $terpakai = str_replace(' ', '', $anggar);
 $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 
+if ($_SESSION["id_pengurus"] == "admin_web") {
+$qManagement = mysqli_query($conn, "SELECT * FROM 2022_$id_management WHERE id = '$id'");
+$dManagement = mysqli_fetch_assoc($qManagement);
+$laporan = $dManagement["laporan"];
+
+if ($laporan == "Terverifikasi") {
+mysqli_query($conn, "UPDATE `2022_$id_management` SET
+`laporan` ='Menunggu Verifikasi'
+WHERE id = '$id' ");
+}
+
+} else {
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
 '$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Mengubah Laporan $program menjadi $deskripsi')");
+}
+
 
 // update_target
 if ($id_management == "aset_yayasan") {
@@ -1811,6 +1885,10 @@ $namaAkun = htmlspecialchars(mysqli_real_escape_string($conn, $data["namaAkun"])
 $namaChange = htmlspecialchars(mysqli_real_escape_string($conn, $data["namaChange"]));
 $changeID = htmlspecialchars(mysqli_real_escape_string($conn, $data["changeID"]));
 
+$qAkunName = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id = '$changeID' AND nama = '$namaChange'");
+$nAkunName = $qAkunName -> num_rows;
+// die(var_dump($nAkunName));
+if ($nAkunName === 1) {
 // update_target
 $update = mysqli_query($conn, "UPDATE `income_media` SET
 nomor_id = '$changeID',
@@ -1827,6 +1905,13 @@ nomor_id = '$changeID',
 `pemegang` = '$namaChange'
 WHERE nama_akun = '$namaAkun' ");
 
+} else {
+echo "<script>
+alert('ID pengurus yang diinput tidak sesuai');
+</script>";
+
+return false;
+}
 
 // die(var_dump($update));
 return mysqli_affected_rows($conn);
