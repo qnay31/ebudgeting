@@ -133,55 +133,109 @@ if ($numsIncome === 0) {
         $hasil_income = array_sum($total_income);
     }
 
-    if ($id_pengurus == "facebook_depok") {
-        $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
-        `id_pengurus`   ='$_SESSION[id_pengurus]',
-        `kategori`      ='Media Sosial',
-        `posisi`        ='$_SESSION[posisi]',
-        `gedung`        ='Facebook Depok',
-        `tgl_pemasukan` ='$tanggal',
-        `income`        ='$hasil_income',
-        `status`        ='Pending'
-        WHERE 
-        tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Depok' "); 
-
-    } elseif ($id_pengurus == "facebook_bogor") {
-        $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
-        `id_pengurus`   ='$_SESSION[id_pengurus]',
-        `kategori`      ='Media Sosial',
-        `posisi`        ='$_SESSION[posisi]',
-        `gedung`        ='Facebook Bogor',
-        `tgl_pemasukan` ='$tanggal',
-        `income`        ='$hasil_income',
-        `status`        ='Pending'
-        WHERE 
-        tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Bogor' "); 
-
+    if ($_SESSION["id_pengurus"] == "admin_web") {
+        if ($id_pengurus == "facebook_depok") {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='kepala_income',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='Kepala Income',
+            `gedung`        ='Facebook Depok',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Depok' "); 
+    
+        } elseif ($id_pengurus == "facebook_bogor") {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='kepala_income',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='Kepala Income',
+            `gedung`        ='Facebook Bogor',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Bogor' "); 
+    
+        } else {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='kepala_income',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='Kepala Income',
+            `gedung`        ='Instagram',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Instagram' "); 
+        }
     } else {
-        $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
-        `id_pengurus`   ='$_SESSION[id_pengurus]',
-        `kategori`      ='Media Sosial',
-        `posisi`        ='$_SESSION[posisi]',
-        `gedung`        ='Instagram',
-        `tgl_pemasukan` ='$tanggal',
-        `income`        ='$hasil_income',
-        `status`        ='Pending'
-        WHERE 
-        tgl_pemasukan   = '$tanggal' AND gedung = 'Instagram' "); 
+        if ($id_pengurus == "facebook_depok") {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='$_SESSION[id_pengurus]',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='$_SESSION[posisi]',
+            `gedung`        ='Facebook Depok',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Depok' "); 
+    
+        } elseif ($id_pengurus == "facebook_bogor") {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='$_SESSION[id_pengurus]',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='$_SESSION[posisi]',
+            `gedung`        ='Facebook Bogor',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Facebook Bogor' "); 
+    
+        } else {
+            $upIncome = mysqli_query($conn, "UPDATE `2022_income` SET 
+            `id_pengurus`   ='$_SESSION[id_pengurus]',
+            `kategori`      ='Media Sosial',
+            `posisi`        ='$_SESSION[posisi]',
+            `gedung`        ='Instagram',
+            `tgl_pemasukan` ='$tanggal',
+            `income`        ='$hasil_income',
+            `status`        ='Pending'
+            WHERE 
+            tgl_pemasukan   = '$tanggal' AND gedung = 'Instagram' "); 
+        }
     }
+    
     // die(var_dump($upIncome));
 }
 
-if ($query3 == true) {
-    echo "<script>
-    alert('Data Berhasil Dihapus');
-    document.location.href = '../../admin/$_SESSION[username].php?id_database=database_crossCheck';
-    </script>";
-}  else {
-    echo "<script>
-    alert('Data Tidak Berhasil Dihapus');
-    document.location.href = '../../admin/$_SESSION[username].php?id_database=database_crossCheck';
-    </script>";
+if ($_SESSION["id_pengurus"] == "admin_web") {
+    if ($query3 == true) {
+        echo "<script>
+        alert('Data Berhasil Dihapus');
+        document.location.href = '../../admin/$_SESSION[username].php?id_adminKey=income_media';
+        </script>";
+    }  else {
+        echo "<script>
+        alert('Data Tidak Berhasil Dihapus');
+        document.location.href = '../../admin/$_SESSION[username].php?id_adminKey=income_media';
+        </script>";
+    }
+} else {
+    if ($query3 == true) {
+        echo "<script>
+        alert('Data Berhasil Dihapus');
+        document.location.href = '../../admin/$_SESSION[username].php?id_database=database_crossCheck';
+        </script>";
+    }  else {
+        echo "<script>
+        alert('Data Tidak Berhasil Dihapus');
+        document.location.href = '../../admin/$_SESSION[username].php?id_database=database_crossCheck';
+        </script>";
+    }
 }
 
 
