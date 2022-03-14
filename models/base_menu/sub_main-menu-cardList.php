@@ -502,7 +502,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
     $bln       = substr($bulan, 5,-3);
     $i = 1;
     
-    if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook") {
+    if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook" || $_SESSION["username"] == "facebook_pusat") {
         $incBulanan = mysqli_query($conn, "SELECT * FROM income_media WHERE cabang = '$_SESSION[cabang]' AND id_pengurus = 'facebook_depok' AND status = 'OK' AND MONTH(tanggal_tf) = '$bln'");
         while($data_incBulanan = mysqli_fetch_array($incBulanan))
         {

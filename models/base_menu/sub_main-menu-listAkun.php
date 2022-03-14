@@ -1,5 +1,6 @@
 <?php 
-if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook") {
+
+if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook" || $_SESSION["username"] == "facebook_pusat") {
     $pengurus   = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus = 'facebook_depok' ORDER BY `nama` ASC");
     
 } else {
@@ -37,9 +38,8 @@ if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekre
                                         $no = 1;
                                         while ($data2 = mysqli_fetch_array($query)) { ?>
                                         <span class="akun"><b>Akun <?= $no++ ?>:</b>
-                                            <a
-                                                href="<?= $_SESSION["username"] ?>.php?id_accountKey=<?= $data2["nomor_id"] ?>&id_akun=<?= $data2["nama_akun"] ?>"><?= ucwords($data2["nama_akun"]) ?>
-                                            </a>
+                                            <span><?= ucwords($data2["nama_akun"]) ?></span>
+
                                         </span>
                                         <br>
 
@@ -53,6 +53,40 @@ if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekre
                                 </div>
                             </div>
                         </span>
+                        <div class="incomeMedia">
+                            <div class="row">
+                                <div class="col-xxl-6 bulanan">
+                                    <?php
+                                        $bulan     = date("Y-m-d");
+                                        $bln       = substr($bulan, 5,-3);
+                                        $qIncomeBulanan = mysqli_query($conn, "SELECT pemegang, SUM(jumlah_tf) AS total_tf FROM income_media WHERE pemegang = '$data[nama]' AND MONTH(tanggal_tf) = '$bln' AND status = 'OK' GROUP BY pemegang ");
+
+                                        $qIncome = mysqli_query($conn, "SELECT pemegang, SUM(jumlah_tf) AS total_tf FROM income_media WHERE pemegang = '$data[nama]' AND status = 'OK' GROUP BY pemegang "); ?>
+
+                                    <?php
+                                        $no = 1;
+                                        while ($dataIncome = mysqli_fetch_array($qIncomeBulanan)) { 
+                                    
+                                        ?>
+                                    <a
+                                        href="<?= $_SESSION["username"] ?>.php?id_accountKey=<?= $data['id'] ?>&id_bulan=<?= $bln ?>">
+                                        Bulan Ini : <?= number_format($dataIncome["total_tf"],0,"." , ".") ?> →</a>
+                                    <?php } ?>
+                                </div>
+
+                                <div class="col-xxl-6 tahunan">
+                                    <?php
+                                $no = 1;
+                                while ($dataIncome = mysqli_fetch_array($qIncome)) { 
+                                    ?>
+                                    <a href="<?= $_SESSION["username"] ?>.php?id_accountKey=<?= $data['id'] ?>">
+                                        Per Tahun : <?= number_format($dataIncome["total_tf"],0,"." , ".") ?> →
+                                    </a>
+                                    <?php } ?>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <?php } ?>
