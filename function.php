@@ -245,7 +245,7 @@ return false;
 
 // input data ke database
 $result = mysqli_query($conn, "INSERT INTO data_akun VALUES('', '$id_pengurus', '$id', '$nama', '$akunName',
-'$_SESSION[cabang]', '$posisi')");
+'$_SESSION[cabang]', '$posisi', '')");
 
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$nama', '$posisi', '$ip',
 '$date', '$nama Telah Membuat Akun media sosial dengan nama akun $akunName')");
@@ -347,101 +347,13 @@ $ip = get_client_ip();
 $date = date("Y-m-d H:i:s");
 // die(var_dump($oldTanggal));
 
-if ($_SESSION["id_pengurus"] == "admin_web") {
+if ($_SESSION["id_pengurus"] == "admin_web" || $_SESSION["id_pengurus"] == "kepala_income") {
+if ($oldTanggal == $tanggal) {
+echo "<script>
+alert('Tidak ada data yang diubah');
+</script>";
 
-} elseif ($_SESSION["id_pengurus"] == "kepala_income") {
-
-$query = mysqli_query($conn, "SELECT * FROM income_media WHERE id = '$id'");
-$data = mysqli_fetch_assoc($query);
-$id_pengurus = $data["id_pengurus"];
-$tanggal_tf = $data["tanggal_tf"];
-
-$kuery = mysqli_query($conn, "SELECT * FROM income_media WHERE tanggal_tf = '$tanggal_tf' AND id_pengurus =
-'$id_pengurus' AND status = 'OK' ");
-$i = 1;
-while($r = mysqli_fetch_array($kuery))
-{
-$tanggalNew = $r["tanggal_tf"];
-$status = $r["status"];
-$d_income = $r['jumlah_tf'];
-$verif = $r['verif'];
-$i++;
-$total_income[$i] = $d_income;
-
-$hasil_income = array_sum($total_income);
-}
-
-if ($id_pengurus == "facebook_depok") {
-$gedung = "Facebook Depok";
-$daerah = "depok";
-
-} elseif ($id_pengurus == "facebook_bogor") {
-$gedung = "Facebook Bogor";
-$daerah = "bogor";
-
-} else {
-$gedung = "Instagram";
-$daerah = "instagram";
-}
-
-$incomeOld = mysqli_query($conn, "SELECT * FROM 2022_income WHERE tgl_pemasukan = '$oldTanggal' AND gedung = '$gedung'
-");
-$numInOld = $incomeOld->num_rows;
-
-$income2022 = mysqli_query($conn, "SELECT * FROM 2022_income WHERE tgl_pemasukan = '$tanggalNew' AND gedung = '$gedung'
-");
-$numIncome = $income2022->num_rows;
-$hData = mysqli_fetch_assoc($income2022);
-$iStatus = $hData["status"];
-
-if ($iStatus == "Terverifikasi") {
-$convert = convertDateDBtoIndo($tanggalNew);
-$bulan = substr($convert, 3, -5);
-
-$query2 = mysqli_query($conn, "SELECT * FROM 2022_data_income WHERE bulan = '$bulan'");
-$data2 = mysqli_fetch_assoc($query2);
-$incomeD = $data2["income_{$daerah}"];
-$income = $data2["income_global"];
-
-if ($income > 0 && $incomeD > 0) {
-$new_incomeD = $incomeD - $hasil_income + $d_income;
-$new_income = $income - $hasil_income + $d_income;
-
-$upToIncome = mysqli_query($conn, "UPDATE 2022_data_income SET
-`income_{$daerah}` = '$new_incomeD',
-`income_global` = '$new_income'
-WHERE bulan = '$bulan'
-");
-}
-}
-// die(var_dump($tIncome));
-
-// die(var_dump($numInOld));
-if (
-$numInOld === 1 && $numIncome === 1 && $iStatus == "Pending" ||
-$numInOld === 1 && $numIncome === 1 && $iStatus == "Menunggu Verifikasi") {
-$delete = mysqli_query($conn, "DELETE FROM `2022_income` WHERE tgl_pemasukan = '$oldTanggal' AND gedung = '$gedung' ");
-
-}
-
-if ($numIncome === 1 && $status == "OK") {
-$upIncome = mysqli_query($conn, "UPDATE `2022_income` SET
-`id_pengurus` ='$_SESSION[id_pengurus]',
-`kategori` ='Media Sosial',
-`posisi` ='$_SESSION[posisi]',
-`gedung` ='$gedung',
-`tgl_pemasukan` ='$tanggalNew',
-`income` ='$hasil_income',
-`status` ='Pending'
-WHERE
-tgl_pemasukan = '$tanggalNew' AND gedung = '$gedung' ");
-
-} else {
-
-$inpIncome = mysqli_query($conn, "INSERT INTO 2022_income VALUES('', '$_SESSION[id_pengurus]', 'Media Sosial',
-'$_SESSION[posisi]', '$gedung', '$tanggalNew', '$d_income', 'Pending')");
-
-// die(var_dump($inpIncome));
+return false;
 }
 
 } else {
@@ -577,6 +489,7 @@ global $conn;
 $id = $data["id_unik"];
 $link = $data["link"];
 $tanggal = $data["tanggal"];
+$akun = $data["akun"];
 
 $t_dataTeman = htmlspecialchars($data["dataTeman"]);
 $a_dataTeman = RemoveSpecialChar($t_dataTeman);
@@ -1590,8 +1503,9 @@ $result = mysqli_query($conn, "INSERT INTO 2022_income VALUES('', '$link', '$kat
 }
 
 // input data ke database
+$today = date('d-m-Y', strtotime($tanggal));
 $result2 = mysqli_query($conn, "INSERT INTO 2022_log_aktivity VALUES('', '$_SESSION[nama]', '$_SESSION[posisi]', '$ip',
-'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menginput income $kategori')");
+'$date', '$_SESSION[nama] Divisi $_SESSION[posisi] Telah Menginput income $kategori $gedung tanggal $today')");
 
 // die(var_dump($simpan));
 return mysqli_affected_rows($conn);
@@ -1975,6 +1889,31 @@ $result = mysqli_query($conn,
 `balasan` = '$balasan',
 `tgl_balasan` = '$date'
 WHERE `id` = '$id'");
+
+return mysqli_affected_rows($conn);
+
+}
+
+function createTeam($data) {
+global $conn;
+
+$team = htmlspecialchars(mysqli_real_escape_string($conn, $data["team"]));
+$nama = $data["namaList"];
+
+foreach ($nama as $listName) {
+
+$qdataTeam = mysqli_query($conn, "SELECT * FROM data_akun WHERE pemegang = '$listName'");
+$dataTeam = mysqli_fetch_assoc($qdataTeam);
+$id_pengurus = $dataTeam["id_pengurus"];
+$pemegang = $dataTeam["pemegang"];
+$posisi = $dataTeam["posisi"];
+$dataTeam = $dataTeam["team"];
+
+$result = mysqli_query($conn,
+"UPDATE data_akun SET
+`team` = '$team'
+WHERE `pemegang` = '$listName'");
+}
 
 return mysqli_affected_rows($conn);
 

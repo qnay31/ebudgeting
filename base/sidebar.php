@@ -10,6 +10,14 @@
             </a>
         </li>
 
+        <?php } elseif ($_GET["idTeam"] == true) { ?>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
         <?php } elseif ($_GET["id_forms"] == true) { ?>
         <li class="nav-item">
             <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php">
@@ -68,12 +76,31 @@
 
         <?php } ?>
 
+        <?php if (
+            $_SESSION["id_pengurus"] == "ketua_yayasan" ||
+            $_SESSION["id_pengurus"] == "kepala_income" ||
+            $_SESSION["id_pengurus"] == "manager_facebook" ||
+            $_SESSION["id_pengurus"] == "kepala_cabang" ||
+            $_SESSION["id_pengurus"] == "manager_instagram"
+            ) { ?>
+        <?php if ($_GET["idTeam"] == "teamMedia" || $_GET["idTeam"] == "changeMedia") { ?>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php?idTeam=timFacebook">
-                <i class="bi bi-people"></i>
-                <span>Teaming</span>
+            <a class="nav-link" href="<?= $_SESSION["username"] ?>.php?idTeam=teamMedia">
+                <i class="bi bi-people"></i><span class="badge badge-danger badge-counter">New</span>
+                <span>Team Media</span>
             </a>
         </li>
+
+        <?php } else { ?>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= $_SESSION["username"] ?>.php?idTeam=teamMedia">
+                <i class="bi bi-people"></i><span class="badge badge-danger badge-counter">New</span>
+                <span>Team Media</span>
+            </a>
+        </li>
+        <?php } ?>
+
+        <?php } ?>
 
         <?php if (
             $_GET["id_database"] == "database_global" || 

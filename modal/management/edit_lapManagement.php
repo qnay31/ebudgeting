@@ -83,7 +83,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><b>Qty</b></span>
-                            <input type="text" class="form-control" name="qty" id="rupiah2" maxlength="11"
+                            <input type="text" class="form-control admin_rp" name="qty" id="rupiah2" maxlength="11"
                                 placeholder="qty pembelian" onkeypress="return hanyaAngka(event)" autocomplete="off"
                                 required oninvalid="this.setCustomValidity('qty harus diisi')"
                                 oninput="this.setCustomValidity('')"
@@ -97,9 +97,9 @@
                         </div>
                         <div class="input-group mb-4">
                             <span class="input-group-text" id="basic-addon1"><b>Rp</b></span>
-                            <input type="text" class="form-control" name="dana_laporan" id="rupiah" maxlength="11"
-                                placeholder="Nominal" onkeypress="return hanyaAngka(event)" autocomplete="off"
-                                value="<?= number_format($r["dana_terpakai"],0,"." , ".") ?>">
+                            <input type="text" class="form-control admin_rp" name="dana_laporan" id="rupiah"
+                                maxlength="11" placeholder="Nominal" onkeypress="return hanyaAngka(event)"
+                                autocomplete="off" value="<?= number_format($r["dana_terpakai"],0,"." , ".") ?>">
                         </div>
                         <div class="button">
                             <input type="submit" name="edit_laporan" class="btn btn-primary w-100" value="Ubah Data">

@@ -1,5 +1,11 @@
+<?php
+
+$query  = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus LIKE 'facebook%' OR id_pengurus LIKE 'instagram%' ORDER BY `posisi` ASC, nama ASC");
+
+?>
 <!-- Modal -->
-<div class="modal fade" id="akun_<?= $r["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade akun_media" id="akun_<?= $r["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,35 +30,53 @@
 
                         <div class="form-group mb-3">
                             <div class="form-text mb-2">
-                                Nama Akun
+                                Posisi
                             </div>
-                            <input type="text" class="form-control" name="namaAkun" value="<?= $r["nama_akun"] ?>"
-                                readonly>
+                            <input type="text" class="form-control" value="<?= $r["posisi"] ?>" readonly>
                         </div>
 
                         <div class="form-group mb-3">
                             <div class="form-text mb-2">
-                                Nomor ID
+                                Nama Akun
                             </div>
-                            <input type="text" class="form-control" name="oldId" value="<?= $r["nomor_id"] ?>" readonly>
+                            <input type="text" class="form-control" name="namaAkun" value="<?= $r["nama_akun"] ?>"
+                                readonly>
+                            <input type="hidden" class="form-control" name="oldId" value="<?= $r["nomor_id"] ?>"
+                                readonly>
                         </div>
 
                         <div class="form-group mb-3">
                             <div class="form-text mb-2">
                                 Change Name
                             </div>
-                            <input type="text" class="form-control" name="namaChange" placeholder="Ubah Nama" required>
+                            <select class="form-select namaChange name<?= $r["id"]  ?>" data-id="<?= $r["id"]  ?>"
+                                name="namaChange" aria-label="Default select example" required
+                                oninvalid="this.setCustomValidity('Pilih salah satu Nama')"
+                                oninput="this.setCustomValidity('')">
+                                <option selected value="">- Pilih Salah Satu Nama -</option>
+                                <?php
+                                while ($data = mysqli_fetch_array($query)) { ?>
+                                <option value="<?= $data['nama'];?>">
+                                    <?= ucwords($data['nama']) ?> (<?= $data['posisi']; ?>)
+                                </option>
+
+                                <?php } ?>
+                            </select>
                         </div>
+
+                        <div class="changeID<?= $r["id"]  ?> mID"></div>
 
                         <div class="form-group mb-3">
                             <div class="form-text mb-2">
                                 Change ID
                             </div>
-                            <input type="text" class="form-control admin_rp" name="changeID" placeholder="Ubah ID"
-                                onkeypress="return hanyaAngka(event)" required>
+                            <input type="text" class="form-control admin_rp" name="changeID"
+                                placeholder="Isi ID pengurus" required
+                                oninvalid="this.setCustomValidity('ID pengurus tidak boleh kosong')"
+                                oninput="this.setCustomValidity('')">
                         </div>
 
-                        <div class="button">
+                        <div class=" button">
                             <input type="submit" name="changeName" class="btn btn-primary w-100" value="Ubah Data">
                         </div>
                     </form>

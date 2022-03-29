@@ -38,7 +38,7 @@
                         <div id="disabledSelect" class="form-text mb-2">
                             Qty Perencanaan <b>Edit</b>
                         </div>
-                        <input type="text" class="form-control" name="qty" id="rupiah2" maxlength="11"
+                        <input type="text" class="form-control admin_rp" name="qty" id="rupiah2" maxlength="11"
                             placeholder="qty perencaan" onkeypress="return hanyaAngka(event)" autocomplete="off"
                             required oninvalid="this.setCustomValidity('qty harus diisi')"
                             oninput="this.setCustomValidity('')" value="<?= $r["qty_anggaran"] ?>">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="input-group mb-4">
                         <span class="input-group-text" id="basic-addon1"><b>Rp</b></span>
-                        <input type="text" class="form-control" name="anggaran" id="rupiah" maxlength="11"
+                        <input type="text" class="form-control admin_rp" name="anggaran" id="rupiah" maxlength="11"
                             placeholder="Nominal" onkeypress="return hanyaAngka(event)" autocomplete="off"
                             value="<?= number_format($r["dana_anggaran"],0,"." , ".") ?>">
                     </div>

@@ -73,6 +73,10 @@
 
     <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
 
+    <?php if ($_SESSION["id_pengurus"] == "kepala_income") { ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css">
+    <?php } ?>
+
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css?v=<?= filemtime('../assets/css/style.css'); ?>" rel="stylesheet">
     <link href="../assets/css/responsive.css?v=<?= filemtime('../assets/css/responsive.css'); ?>" rel="stylesheet">

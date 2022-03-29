@@ -93,7 +93,6 @@ if ($key_admin == "akunEbudget") {
     $admin_judul = "DATA $j_view";
 
 } elseif ($key_admin == "laporan_media") {
-    $q  = mysqli_query($conn, "SELECT * FROM $key_admin  ORDER BY `tgl_laporan` DESC");
     $j_view     = strtoupper($key_admin);
     $admin_judul = "DATA $j_view";
 
@@ -741,63 +740,40 @@ if ($key_admin == "akunEbudget") {
         </table>
 
         <?php } elseif ($key_admin == "laporan_media") { ?>
-        <table id="tabel-database_lapMedia" class="table table-bordered">
+        <table id="tabel-admin_lapMedia" class="table table-bordered">
             <thead>
                 <tr style="text-align: center;">
                     <th scope="col">No</th>
                     <th scope="col">Pengurus</th>
-                    <th scope="col">Menu</th>
+                    <th scope="col">Keterangan</th>
                     <th scope="col">Akun</th>
                     <th scope="col">Tgl Laporan</th>
-                    <th scope="col">Periode</th>
+                    <th scope="col">Menu</th>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Total Teman</th>
+                    <th scope="col">Add Pertemanan</th>
+                    <th scope="col">Teman Baru</th>
+                    <th scope="col">Hapus Teman</th>
                     <th scope="col">Total Serangan</th>
                     <th scope="col">Respon</th>
                     <th scope="col">Minta Norek</th>
                     <th scope="col">Tanya Alamat</th>
                     <th scope="col">Insya Allah</th>
-                    <th scope="col">B. Bisa Bantu</th>
+                    <th scope="col">Belum Bisa</th>
                     <th scope="col">Tidak Respon</th>
                     <th scope="col">Donatur</th>
                     <th scope="col">Total Income</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    $no = 1;
-                    while ($r = $q->fetch_assoc()) {
-                        $convert   = convertDateDBtoIndo($r['tgl_laporan']);
-                        $bulan     = substr($convert, 2);
-                ?>
-                <tr>
-                    <td style="text-align: center;"><?= $no++ ?></td>
-                    <td><?= ucwords($r['pemegang']) ?></td>
-                    <td style="text-align: center;">
-                        <a href=""><i class="bi bi-pencil" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit"></i></a>&nbsp;|&nbsp;
-                        <a href=""><i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Hapus"></i></a>
-                    </td>
-                    <td><?= ucwords($r['nama_akun']) ?></td>
-                    <td style="text-align: center;">
-                        <?= date('d-m-Y', strtotime($r['tgl_laporan'])); ?></td>
-                    <td style=" text-align: center;">
-                        <?= $bulan ?>
-                    </td>
-                    <td style="text-align: center;"><?= number_format($r['totalSerangan'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['respon'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['minta_norek'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['alamat'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['insya_allah'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['belumbisa_bantu'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['tidak_respon'],0,"." , ".") ?></td>
-                    <td style="text-align: center;"><?= number_format($r['donatur'],0,"." , ".") ?></td>
-                    <td><?= number_format($r['total_income']) ?></td>
-                </tr>
-                <?php } ?>
+
             </tbody>
             <tfoot>
                 <tr style="text-align: center;">
-                    <th colspan="6">Total</th>
+                    <th colspan="8">Total</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>

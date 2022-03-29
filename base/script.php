@@ -59,11 +59,18 @@
 <?php if (
     $_SESSION["id_pengurus"] == "ketua_yayasan" ||
     $_SESSION["id_pengurus"] == "management_keuangan" ||
-    $_SESSION["id_pengurus"] == "kepala_pengajuan"
+    $_SESSION["id_pengurus"] == "kepala_pengajuan" ||
+    $_SESSION["id_pengurus"] == "manager_facebook" ||
+    $_SESSION["id_pengurus"] == "manager_instagram"
     ) { ?>
 <script src="../assets/js/splide.js"></script>
 <?php } ?>
 <script src="../assets/js/sweetalert2.min.js"></script>
+
+<?php if ($_SESSION["id_pengurus"] == "kepala_income") { ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+<?php } ?>
 <!-- Template Main JS File -->
 <script src="../assets/js/jquery.mask.js"></script>
 <script src="../assets/js/main.js"></script>

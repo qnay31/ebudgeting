@@ -43,6 +43,7 @@ if ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "
 if ($_SESSION["id_pengurus"] == "facebook_depok" || $_SESSION["id_pengurus"] == "facebook_bogor" || $_SESSION["id_pengurus"] == "instagram") {
     $_GET["id_database"] == "database_akunMedia";
     $_SESSION["media"] = $_GET["id_database"];
+    $_SESSION["id_table"] = $_GET["id_forms"] == "forms_laporanIncome";
 }
 
 
@@ -80,6 +81,12 @@ include 'base/header.php'
     <?php if ($_GET["id_database"] == "database_program" || $_GET["id_database"] == "database_paudqu") { ?>
     <?php
         include 'database/program.php';
+    ?>
+
+    <!-- team media -->
+    <?php } elseif ($_GET["idTeam"] == "teamMedia" || $_GET["idTeam"] == "changeMedia") { ?>
+    <?php
+        include 'teaming/team_media.php';
     ?>
 
     <!-- database global -->

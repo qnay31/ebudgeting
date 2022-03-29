@@ -18,11 +18,18 @@
     .buttons-collection,
     .profile .nav-item,
     .revenue-card .akun,
+    .incomeMedia .bulanan,
+    .incomeMedia .tahunan,
+    .saranBalasan,
     .dashboard .nav-item,
     .customers-card .akun,
     #akunMedia .btn-danger,
     #form-pengajuan .list-group,
     #profile-overview .col-lg-9,
+    .select2-search__field::placeholder,
+    .select2-results__option,
+    .select2-selection__choice,
+    .select2-search.select2-search--inline,
     #profile-edit .btn-primary,
     #profile-change-password .btn-primary {
         font-size: 12px;
@@ -97,9 +104,16 @@
     .profile .nav-item,
     .dashboard .nav-item,
     .revenue-card .akun,
+    .incomeMedia .bulanan,
+    .saranBalasan,
+    .incomeMedia .tahunan,
     .customers-card .akun,
     #akunMedia .btn-danger,
     #profile-overview .col-lg-9,
+    .select2-search__field::placeholder,
+    .select2-results__option,
+    .select2-selection__choice,
+    .select2-search.select2-search--inline,
     #profile-edit .btn-primary,
     #profile-change-password .btn-primary {
         font-size: 14px !important;
@@ -159,14 +173,21 @@
     .table-responsive .btn-success,
     .modal-footer .btn-secondary,
     .buttons-excel,
+    .incomeMedia .bulanan,
+    .incomeMedia .tahunan,
     .buttons-collection,
     .profile .nav-item,
     .dashboard .nav-item,
     .revenue-card .akun,
     .customers-card .akun,
+    .saranBalasan,
     #akunMedia .btn-danger,
     #profile-overview .col-lg-9,
     #profile-edit .btn-primary,
+    .select2-search__field::placeholder,
+    .select2-results__option,
+    .select2-selection__choice,
+    .select2-search.select2-search--inline,
     #profile-change-password .btn-primary {
         font-size: 14px;
     }
@@ -214,7 +235,6 @@
         padding: 8px;
         max-width: 150px;
     }
-
 
 }
 
@@ -329,4 +349,72 @@
     color: black;
     text-decoration: underline !important;
     cursor: pointer;
+}
+
+.incomeMedia a {
+    text-decoration: underline;
+}
+
+.incomeMedia {
+    padding: 0 1.2em;
+}
+
+.incomeMedia .tahunan {
+    text-align: right;
+}
+
+.tabNav {
+    justify-content: center;
+    display: flex;
+}
+
+.saranMasukan {
+    padding: 0 14px;
+    width: 100%;
+}
+
+.textName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 220px;
+}
+
+.editLaporanSaran {
+    display: flex;
+    justify-content: space-around;
+    text-decoration: underline;
+}
+
+.notification-item.saranBalasan {
+    background-color: #eff2fa;
+}
+
+.box-warning {
+    background-color: #eae9e9;
+    color: red;
+    font-size: 0.8em;
+    text-align: justify;
+    font-weight: 800;
+    padding: 1em;
+}
+
+.button-option {
+    display: flex;
+    justify-content: center;
+}
+
+.button-confirm,
+.button-edit {
+    text-align: center;
+}
+
+.detail-info {
+    white-space: nowrap;
+    font-size: .8em;
+}
+
+.removeRow {
+    background-color: #FF6347;
+    color: #FFFFFF;
 }
