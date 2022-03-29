@@ -4,18 +4,34 @@ $unik     = $_GET["id_unik"];
 $q3  = mysqli_query($conn, "SELECT * FROM income_media WHERE id = '$unik'");
 $data   = mysqli_fetch_assoc($q3);
 
-if (isset($_POST["input"]) ) {
-    $link = $_SESSION["username"];
-    if(edit_incomeMedia($_POST) > 0 ) {
-            echo "<script>
-                    alert('Data Income Berhasil Diedit');
-                    document.location.href = '$link.php?id_database=database_crossCheck';
-                </script>";
-        } 
-            else {
-            echo mysqli_error($conn);
+if ($_SESSION["id_pengurus"] == "admin_web") {
+    if (isset($_POST["input"]) ) {
+        $link = $_SESSION["username"];
+        if(edit_incomeMedia($_POST) > 0 ) {
+                echo "<script>
+                        alert('Data Income Berhasil Diedit');
+                        document.location.href = '$link.php?id_adminKey=income_media';
+                    </script>";
+            } 
+                else {
+                echo mysqli_error($conn);
+            }
         }
-    }
+} else {
+    if (isset($_POST["input"]) ) {
+        $link = $_SESSION["username"];
+        if(edit_incomeMedia($_POST) > 0 ) {
+                echo "<script>
+                        alert('Data Income Berhasil Diedit');
+                        document.location.href = '$link.php?id_database=database_crossCheck';
+                    </script>";
+            } 
+                else {
+                echo mysqli_error($conn);
+            }
+        }
+}
+
 
 ?>
 

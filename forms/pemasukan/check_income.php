@@ -8,6 +8,19 @@ $s2 = $q2->num_rows;
 
 $k  = mysqli_query($conn, "SELECT * FROM 2022_incometanparesi WHERE id_pengurus = '$_SESSION[id_pengurus]' AND `posisi` = '$_SESSION[posisi]' AND status = 'Menunggu Verifikasi' ORDER BY `tgl_pemasukan` DESC");
 $l = $k->num_rows;
+
+if (isset($_POST["editIncome"]) ) {
+    $link = $_SESSION["username"];
+    if(edit_incomeMedia($_POST) > 0 ) {
+        echo "<script>
+                alert('Data berhasil diubah, harap cek kembali');
+                document.location.href = '$link.php?id_forms=forms_check';
+            </script>";
+    } 
+        else {
+        echo mysqli_error($conn);
+    }
+}
 ?>
 
 <main id="main" class="main">

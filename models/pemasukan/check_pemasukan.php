@@ -27,7 +27,11 @@
                 <?php
                     $no = 1;
                     while ($r = $q->fetch_assoc()) {
-                    $bln       = substr($r['tanggal_tf'], 5,-3);
+                    $bln      = substr($r['tanggal_tf'], 5,-3);
+                    $today    = date("Y-m-d");
+                    $bToday   = substr($today, 5,-3);
+                    $cToday   = convertDateDBtoIndo($r['tanggal_tf']);
+                    $bulanan  = substr($cToday, 3, -5);
                 ?>
 
                 <tr>
@@ -41,10 +45,17 @@
                     <td style="text-align: center;"><?= ucwords($r['bank']) ?></td>
                     <td>Rp. <?= number_format($r['jumlah_tf'],0,"." , ".") ?></td>
                     <td style=" text-align: center;">
+                        <?php if ($bln == $bToday) { ?>
                         <a class="btn btn-success"
                             href="../verif/laporan/checkIncome.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
                             onclick="return confirm('Income akan dikonfirmasi dan sudah valid??!')"><i
-                                class="bi bi-check-circle text-white"></i></a> ||
+                                class="bi bi-check-circle text-white"></i></a>
+
+                        <?php } else { ?>
+                        <a class="btn btn-primary" href="" data-bs-toggle="modal"
+                            data-bs-target="#income_<?= $r["id"] ?>"><i class="bi bi-pin-angle text-white"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Cek Data"></i></a>
+                        <?php } ?> ||
                         <a class="btn btn-danger"
                             href="../verif/laporan/batalIncome.php?id_unik=<?= $r['id'] ?>&id_p=<?= $bln ?>"
                             onclick="return confirm('Income akan dibatalkan karena tidak sesuai dan dihapus??!')"><i
@@ -60,6 +71,10 @@
 
                     </td>
                 </tr>
+
+                <?php if ($bln !== $bToday) { ?>
+                <?php include '../modal/mediaSosial/cekIncome.php' ?>
+                <?php } ?>
 
                 <?php } ?>
             </tbody>
