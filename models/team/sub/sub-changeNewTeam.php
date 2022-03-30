@@ -17,6 +17,7 @@ if ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] =
     }
     
 } elseif ($_SESSION["id_pengurus"] == "manager_instagram") {
+
     $teamP = 'Instagram Bojong';
     $teamT = 'Instagram Taman';
     $teamM = 'Instagram Meruyung';
@@ -49,7 +50,18 @@ if ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] =
     $nGroup = $qGroup -> num_rows;
     
 } elseif ($_SESSION["id_pengurus"] == "manager_instagram") {
-    $qGroup = mysqli_query($conn, "SELECT team FROM data_akun WHERE team = '$teamP' OR team '$teamT' OR team '$teamM'");
+    if ($_SESSION["username"] == "instagram_taman") {
+        $qGroup = mysqli_query($conn, "SELECT team FROM data_akun WHERE team = '$teamT'");
+
+    } elseif ($_SESSION["username"] == "instagram_meruyung") {
+        $qGroup = mysqli_query($conn, "SELECT team FROM data_akun WHERE team = '$teamM'");
+
+    } elseif ($_SESSION["username"] == "instagram_bojong") {
+        $qGroup = mysqli_query($conn, "SELECT team FROM data_akun WHERE team = '$teamP'");
+
+    } else {
+        $qGroup = mysqli_query($conn, "SELECT team FROM data_akun WHERE team = '$teamP' OR team = '$teamT' OR team = '$teamM'");
+    }
     $nGroup = $qGroup -> num_rows;
     
 } else {

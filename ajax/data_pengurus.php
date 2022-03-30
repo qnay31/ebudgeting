@@ -41,7 +41,18 @@ if ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] =
     }
     
 } elseif ($_SESSION["id_pengurus"] == "manager_instagram") {
-    $where  = "id_pengurus LIKE 'instagram%' AND team NOT LIKE '' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
+    if ($_SESSION["username"] == "instagram_taman") {
+        $where  = "id_pengurus LIKE 'instagram%' AND team LIKE 'Instagram Taman' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
+
+    } elseif ($_SESSION["username"] == "instagram_meruyung") {
+        $where  = "id_pengurus LIKE 'instagram%' AND team LIKE 'Instagram Meruyung' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
+
+    } elseif ($_SESSION["username"] == "instagram_bojong") {
+        $where  = "id_pengurus LIKE 'instagram%' AND team LIKE 'Instagram Bojong' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
+
+    } else {
+        $where  = "id_pengurus LIKE 'instagram%' AND team NOT LIKE '' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
+    }
     
 } else {
     $where  = "team NOT LIKE '' GROUP BY nomor_id ORDER BY `team` ASC, pemegang ASC ";
