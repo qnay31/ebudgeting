@@ -25,120 +25,280 @@ $table = 'laporan_media';
 $primaryKey = 'id';
 
 if ($_SESSION["id_pengurus"] == "manager_facebook" || $_SESSION["id_pengurus"] == "manager_instagram") {
-    if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook") {
-        $where = "id_pengurus = 'facebook_depok' ORDER BY pemegang ASC, `tgl_laporan` DESC";
+    $_SESSION["id_table"] = "";
+    if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook" || $_SESSION["username"] == "facebook_pusat") {
+        $where = "id_pengurus = 'facebook_depok' ORDER BY `tgl_laporan` DESC";
+
+    } elseif ($_SESSION["username"] == "instagram_taman" || $_SESSION["username"] == "instagram_bojong" || $_SESSION["username"] == "instagram_meruyung") {
+        $where = "id_pengurus = 'instagram' ORDER BY `tgl_laporan` DESC";
+
     } else {
-        $where = "id_pengurus = '$_SESSION[username]' ORDER BY pemegang ASC, `tgl_laporan` DESC";
+        $where = "id_pengurus = '$_SESSION[username]' ORDER BY `tgl_laporan` DESC";
     }
 
-} elseif ($_SESSION["id_pengurus"] == "ketua_yayasan") {
-    $where = "id_pengurus NOT LIKE 'A%' ORDER BY pemegang ASC, `tgl_laporan` DESC";
+} elseif ($_SESSION["id_pengurus"] == "ketua_yayasan" || $_SESSION["id_pengurus"] == "admin_web") {
+    $_SESSION["id_table"] = "";
+    $where = "id_pengurus NOT LIKE 'A%' ORDER BY `tgl_laporan` DESC";
 
 } elseif ($_SESSION["id_pengurus"] == "kepala_cabang") {
-    $where = "id_pengurus = 'facebook_bogor' ORDER BY pemegang ASC, `tgl_laporan` DESC";
+    $where = "id_pengurus = 'facebook_bogor' ORDER BY `tgl_laporan` DESC";
 
 } else {
     $bulan      = date("Y-m-d");
     $bln        = substr($bulan, 5,-3);
-    if ($_SESSION["media"] == "") {
-        $where = "pemegang = '$_SESSION[nama]' AND MONTH(tgl_laporan) = '$bln' ORDER BY `tgl_laporan` DESC";
-        
+    if ($_SESSION["id_table"] == "") {
+        if ($_SESSION["media"] == "") {
+            $where = "pemegang = '$_SESSION[nama]' AND MONTH(tgl_laporan) = '$bln' ORDER BY `tgl_laporan` DESC";
+            
+        } else {
+            $where = "pemegang = '$_SESSION[nama]' ORDER BY `tgl_laporan` DESC";
+        }
     } else {
         $where = "pemegang = '$_SESSION[nama]' ORDER BY `tgl_laporan` DESC";
     }
     
-
 }
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
-$columns = array(
-    array( 'db' => 'id', 'dt'   => 0, ),
-    array( 'db' => 'pemegang', 'dt' => 1 ),
-    array( 'db' => 'posisi', 'dt' => 2 ),
-    array( 'db' => 'nama_akun', 'dt' => 3 ),
-    array(
-        'db'        => 'tgl_laporan',
-        'dt'        => 4,
-        'formatter' => function( $d, $row ) {
-            return date( 'd-m-Y', strtotime($d));
-        }
-    ), 
-    array(
-        'db'        => 'tgl_laporan',
-        'dt'        => 5,
-        'formatter' => function( $d, $row ) {
-            $convert = date( 'd F Y', strtotime($d));
-            $bulan   = substr($convert, 2);
-            return $bulan;
-        }
-    ),
-    array(
-        'db'        => 'totalSerangan',
-        'dt'        => 6,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'respon',
-        'dt'        => 7,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'alamat',
-        'dt'        => 8,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'insya_allah',
-        'dt'        => 9,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'minta_norek',
-        'dt'        => 10,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'belumbisa_bantu',
-        'dt'        => 11,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'tidak_respon',
-        'dt'        => 12,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'donatur',
-        'dt'        => 13,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    ),
-    array(
-        'db'        => 'total_income',
-        'dt'        => 14,
-        'formatter' => function( $d, $row ) {
-            return number_format($d);
-        }
-    )
-);
+if ($_SESSION["id_pengurus"] == "admin_web" || $_SESSION["id_table"] == "forms_laporanIncome") {
+    $columns = array(
+        array( 'db' => 'id', 'dt'   => 0, ),
+        array( 'db' => 'pemegang', 'dt' => 1 ),
+        array( 'db' => 'posisi', 'dt' => 2 ),
+        array( 'db' => 'nama_akun', 'dt' => 3 ),
+        array(
+            'db'        => 'tgl_laporan',
+            'dt'        => 4,
+            'formatter' => function( $d, $row ) {
+                return date( 'd-m-Y', strtotime($d));
+            }
+        ), 
+        array( 'db'     => 'id', 'dt' => 5 ),
+        array( 
+            'db'        => 'keterangan', 
+            'dt'        => 6,
+            'formatter' => function($d, $row) {
+                return $d == "" ? "-" : $d;
+            }
+        ),
+        array(
+            'db'        => 'jumlahTeman',
+            'dt'        => 7,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "-";
+            }
+        ),
+        array(
+            'db'        => 'jumlahAdd',
+            'dt'        => 8,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'temanBaru',
+            'dt'        => 9,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'hapusTeman',
+            'dt'        => 10,
+            'formatter' => function( $d, $row ) {
+                return $d < 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'totalSerangan',
+            'dt'        => 11,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'respon',
+            'dt'        => 12,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'minta_norek',
+            'dt'        => 13,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'alamat',
+            'dt'        => 14,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'insya_allah',
+            'dt'        => 15,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'belumbisa_bantu',
+            'dt'        => 16,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'tidak_respon',
+            'dt'        => 17,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'donatur',
+            'dt'        => 18,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'total_income',
+            'dt'        => 19,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        )
+    );
+} else {
+    $columns = array(
+        array( 'db' => 'id', 'dt'   => 0, ),
+        array( 'db' => 'pemegang', 'dt' => 1 ),
+        array( 'db' => 'posisi', 'dt' => 2 ),
+        array( 'db' => 'nama_akun', 'dt' => 3 ),
+        array(
+            'db'        => 'tgl_laporan',
+            'dt'        => 4,
+            'formatter' => function( $d, $row ) {
+                return date( 'd-m-Y', strtotime($d));
+            }
+        ), 
+        array(
+            'db'        => 'tgl_laporan',
+            'dt'        => 5,
+            'formatter' => function( $d, $row ) {
+                $convert = date( 'd F Y', strtotime($d));
+                $bulan   = substr($convert, 2);
+                return $bulan;
+            }
+        ),
+        array( 
+            'db'        => 'keterangan', 
+            'dt'        => 6,
+            'formatter' => function($d, $row) {
+                return $d == "" ? "-" : $d;
+            }
+        ),
+        array(
+            'db'        => 'jumlahTeman',
+            'dt'        => 7,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "-";
+            }
+        ),
+        array(
+            'db'        => 'jumlahAdd',
+            'dt'        => 8,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'temanBaru',
+            'dt'        => 9,
+            'formatter' => function( $d, $row ) {
+                return $d > 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'hapusTeman',
+            'dt'        => 10,
+            'formatter' => function( $d, $row ) {
+                return $d < 0 ? ($d) : "0";
+            }
+        ),
+        array(
+            'db'        => 'totalSerangan',
+            'dt'        => 11,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'respon',
+            'dt'        => 12,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'alamat',
+            'dt'        => 13,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'insya_allah',
+            'dt'        => 14,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'minta_norek',
+            'dt'        => 15,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'belumbisa_bantu',
+            'dt'        => 16,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'tidak_respon',
+            'dt'        => 17,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'donatur',
+            'dt'        => 18,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        ),
+        array(
+            'db'        => 'total_income',
+            'dt'        => 19,
+            'formatter' => function( $d, $row ) {
+                return ($d);
+            }
+        )
+    );
+}
+
  
 // SQL server connection information
 $sql_details = array(

@@ -86,9 +86,9 @@ if ($_SESSION["id_pengurus"] == "admin_web") {
                     $d == "facebook_bogor" ? "Facebook Bogor" : "Instagram");
             } ),
         array( 'db' => 'nama_akun',  'dt' => 3 ),
-        array( 'db' => 'status',   'dt' => 4 ),
+        array( 'db' => 'status',  'dt' => 4 ),
         array( 'db' => 'id','dt' => 5,),
-        array( 'db' => 'nama_donatur',     'dt' => 6 ),
+        array( 'db' => 'nama_donatur', 'dt' => 6 ),
         array(
             'db'        => 'tanggal_tf',
             'dt'        => 7,

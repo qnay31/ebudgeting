@@ -1,8 +1,11 @@
 <?php 
 
-if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekretaris_facebook" || $_SESSION["username"] == "facebook_pusat") {
+if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "facebook_pusat") {
     $pengurus   = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus = 'facebook_depok' ORDER BY `nama` ASC");
     
+} elseif ($_SESSION["username"] == "instagram_taman" || $_SESSION["username"] == "instagram_bojong" || $_SESSION["username"] == "instagram_meruyung") {
+    $pengurus   = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus = 'instagram' ORDER BY `nama` ASC");
+
 } else {
     $pengurus   = mysqli_query($conn, "SELECT * FROM akun_pengurus WHERE id_pengurus = '$_SESSION[username]' ORDER BY `nama` ASC");
 }
@@ -55,7 +58,7 @@ if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekre
                         </span>
                         <div class="incomeMedia">
                             <div class="row">
-                                <div class="col-xxl-6 bulanan">
+                                <div class="col-6 bulanan">
                                     <?php
                                         $bulan     = date("Y-m-d");
                                         $bln       = substr($bulan, 5,-3);
@@ -74,7 +77,7 @@ if ($_SESSION["username"] == "admin_facebook" || $_SESSION["username"] == "sekre
                                     <?php } ?>
                                 </div>
 
-                                <div class="col-xxl-6 tahunan">
+                                <div class="col-6 tahunan">
                                     <?php
                                 $no = 1;
                                 while ($dataIncome = mysqli_fetch_array($qIncome)) { 

@@ -12682,3 +12682,7 @@ body.sidebar-toggled footer.sticky-footer {
     z-index: 99;
     right: 75px;
 }
+
+.lupaSandi {
+    text-align: right;
+}

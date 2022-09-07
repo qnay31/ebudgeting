@@ -17,11 +17,8 @@ if (isset($_POST["laporan"]) ) {
         }
     }
 
-    $q  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND MONTH(tgl_laporan) = '$bln' ORDER BY `tgl_laporan` DESC");
-
     $q2  = mysqli_query($conn, "SELECT * FROM income_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND status = 'Menunggu Verifikasi' ORDER BY `tanggal_tf` DESC");
     $s = $q2->num_rows;
-
 ?>
 
 <main id="main" class="main">

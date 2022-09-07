@@ -618,6 +618,7 @@ if ($key_admin == "akunEbudget") {
                     <th scope="col">Cabang</th>
                     <th scope="col">Nama Akun</th>
                     <th scope="col">Posisi</th>
+                    <th scope="col">Team</th>
                     <th scope="col">Menu</th>
                 </tr>
             </thead>
@@ -648,6 +649,7 @@ if ($key_admin == "akunEbudget") {
                     </td>
                     <td><?= $r['nama_akun'] ?></td>
                     <td><?= ucwords($r['posisi']) ?></td>
+                    <td><?= ucwords($r['team']) ?></td>
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#akun_<?= $r["id"] ?>"><i class="bi bi-pencil"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i></a>&nbsp;|&nbsp;

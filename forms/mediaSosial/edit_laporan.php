@@ -1,7 +1,6 @@
 <?php
 
 $unik     = $_GET["id_unik"];
-$periode  = $_GET["id_p"]; 
 
 if (isset($_POST["input"]) ) {
     $link = $_SESSION["username"];
@@ -21,7 +20,7 @@ if (isset($_POST["input"]) ) {
     $q2  = mysqli_query($conn, "SELECT * FROM income_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND status = 'Menunggu Verifikasi' ORDER BY `tanggal_tf` DESC");
     $s = $q2->num_rows;
 
-    $q3  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND id = '$unik' AND MONTH(tgl_laporan) = '$periode' ORDER BY `tgl_laporan` DESC");
+    $q3  = mysqli_query($conn, "SELECT * FROM laporan_media WHERE id_pengurus = '$_SESSION[id_pengurus]' AND nomor_id = '$_SESSION[id]' AND id = '$unik' ORDER BY `tgl_laporan` DESC");
     $data   = mysqli_fetch_assoc($q3);
     $dataTeman = $data["jumlahTeman"];
     $temanBaru = $data["temanBaru"];
